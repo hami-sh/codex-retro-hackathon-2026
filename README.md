@@ -1,6 +1,6 @@
 # codex-pkmn demo edits
 
-TLDR: This demo lets players talk to GPT-5.5 from inside classic games: Navi becomes an AI prompt interface in Ocarina of Time, and Pokemon Emerald becomes both a GPT-5.5 interaction surface and a personalized game build with custom AI-generated starters. The value is showing that decompiled games can become living, moddable frontends for modern AI while still running on the original game engines.
+TLDR: This demo lets players talk to GPT-5.5 from inside classic games: Navi becomes an AI prompt interface in Ocarina of Time, and Pokemon Emerald becomes a GPT-5.5 interaction surface through a custom NPC with tools for granting Pokemon and even warping to the end of the game. The value is showing that decompiled games can become living, moddable frontends for modern AI while still running on the original game engines.
 
 This project explores what happens when classic games become programmable surfaces for AI-assisted tools and personalization. For the demo, we modified two community decompilation projects: one Ocarina of Time build with a Navi/Codex prompt flow, and one Pokemon Emerald build with custom starter Pokemon assets.
 
@@ -11,7 +11,7 @@ This repository contains only our hackathon changes, not the full upstream game 
 ## What it does
 
 - OOT: adds a Navi Codex flow that writes prompt-style interaction text through the project's IS64/debug communication path.
-- Pokemon Emerald: replaces the starter Pokemon presentation with custom generated starter assets and matching metadata edits.
+- Pokemon Emerald: adds a custom GPT-5.5-facing NPC flow with tools for granting Pokemon, warping to the end of the game, and presenting custom generated starter assets with matching metadata edits.
 - Packaging: ships only patch deltas so judges can apply the work to clean upstream checkouts without this repo redistributing either full game project.
 
 ## Base projects
