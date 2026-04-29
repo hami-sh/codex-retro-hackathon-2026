@@ -1,6 +1,16 @@
 # codex-pkmn demo edits
 
+This project explores what happens when classic games become programmable surfaces for AI-assisted tools and personalization. For the demo, we modified two community decompilation projects: one Ocarina of Time build with a Navi/Codex prompt flow, and one Pokemon Emerald build with custom starter Pokemon assets.
+
+Video game decompilation projects reconstruct old games as buildable C/source-code projects. They do not replace the original game data; instead, they let developers rebuild and modify a game when paired with legally obtained assets/ROMs and the upstream build tooling. That makes them ideal hackathon targets: the game still runs like the original, but specific systems can be changed, extended, and rebuilt.
+
 This repository contains only our hackathon changes, not the full upstream game decompilation repositories. The base projects include copyrighted game code/assets, so this repo is intentionally limited to patch files and our small custom asset delta.
+
+## What it does
+
+- OOT: adds a Navi Codex flow that writes prompt-style interaction text through the project's IS64/debug communication path.
+- Pokemon Emerald: replaces the starter Pokemon presentation with custom generated starter assets and matching metadata edits.
+- Packaging: ships only patch deltas so judges can apply the work to clean upstream checkouts without this repo redistributing either full game project.
 
 ## Base projects
 
