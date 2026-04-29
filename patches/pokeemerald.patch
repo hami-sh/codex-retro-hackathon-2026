@@ -1,0 +1,852 @@
+diff --git a/data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc b/data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc
+index c1b2d5862..f2f3b4783 100644
+--- a/data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc
++++ b/data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc
+@@ -867,35 +867,37 @@ LittlerootTown_ProfessorBirchsLab_Text_PCUsedForResearch:
+ 	.string "Better not mess around with it.$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CodexPrompt:
+-	.string "CODEX LINK READY.\p"
+-	.string "ENTER A MESSAGE FOR CODEX.$"
++	.string "Hi! I'm linked up to Codex.\p"
++	.string "What should we ask it?$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CodexWaiting:
+-	.string "WAITING FOR CODEX...$"
++	.string "One sec...\p"
++	.string "Codex is thinking.$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CodexResponse:
+-	.string "CODEX SAYS:\p"
++	.string "Codex says:\p"
+ 	.string "{STR_VAR_1}$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CodexTimeout:
+-	.string "NO REPLY YET.\p"
+-	.string "CHECK THE HOST BRIDGE.$"
++	.string "Hmm, no answer yet.\p"
++	.string "Check the host bridge\n"
++	.string "and try me again.$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CodexToolParty:
+-	.string "CODEX SENT OVER\p"
+-	.string "SHINY LV.100 {STR_VAR_2}!$"
++	.string "Nice! Codex sent over\p"
++	.string "a shiny Lv.100 {STR_VAR_2}!$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CodexToolPc:
+-	.string "SHINY LV.100 {STR_VAR_2}\p"
+-	.string "WAS SENT TO THE PC.$"
++	.string "Nice! That shiny Lv.100\p"
++	.string "{STR_VAR_2} went to the PC.$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CodexToolNoRoom:
+-	.string "CODEX FOUND NO ROOM\p"
+-	.string "FOR THAT POKéMON.$"
++	.string "Codex found the POKéMON,\p"
++	.string "but there's no room for it.$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CodexToolWarpEnd:
+-	.string "CODEX OPENED\p"
+-	.string "THE FINAL DOOR.$"
++	.string "All set.\p"
++	.string "Codex opened the final door.$"
+ 
+ LittlerootTown_ProfessorBirchsLab_Text_CrammedWithBooksOnPokemon:
+ 	.string "It's crammed with books on POKéMON.$"
+diff --git a/graphics/pokemon/mudkip/anim_front.png b/graphics/pokemon/mudkip/anim_front.png
+index 712f3ce5a85e3e0386d2de0d15244bdef8b26d6a..9bae0179f0cf87e63cabe69c5cb00c61152be179 100644
+GIT binary patch
+literal 2196
+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
+
+delta 952
+zcmV;p14sOn5yA(M7=Hu<0000<uX0%c001yhOjJcNq*AoK_MEKVi=4E3b9?`^Qudrd
+z&4WRtds@ZK|NsC0d&U1+tmZL;#Y#$p5D*Y;%Vu)`0004WQchC<K<3zH0009(Nkl<Z
+zScUDDKWp1S7>8Br!C<8Ha4GT9!D}hhRVZ{wXuwMsZ%R6}*?%N^D(#RsOADshXoyox
+zK1e@+<OB-M;*(uSpoQophj<9sl3mD@*iPS*vsi!5g%sMsugBlx_uf0{c*Jq@`ZvW}
+zZDuZ*#y%5puz^`Eg!-QV0|sz16EJ1~-P;4$Gz=ENQ=rWN1OS?h+yh#-0^AvZ(|{Qn
+zLpr+NgM(;#`+tmO139m08UPs6MPixS3qNoIfJp&*mM>GOdw!rx0h&XLSglsO@5=>^
+zmIpMsyQx%C3>iVwbP5=Q)!JTWZz?Vp&l|0V*Wpn4(8-|ZDKrI?mCDZLm4<B-%WHWR
+zB@vni;>zaEc!=@k@K9Q>NTm!y$>|X)@@x1v9uL1sl7IAyHkjT;ydoFqe6}e|(%O3p
+zJn_wtFTjHUM5Y~J1vGt<s#?es+QL!*kV=6L9H*$IWkQb7)|Ql40a)_ooXYJYS`P}F
+zZ_ZFsO!@&hY?m(Wj($`vG2<Iy0ubv=bP1H@-{eh^qjY+i0=9n-H|3D0>Bkcw_&(9%
+z$?<9ua(~AP&*7~nogCy&J3NP**P_svL|xCW*@yS0IgGp-LVv&|_U#4M{pJ>~nen{l
+z^|#9+?3}M-HUV10-x;}}17OVnnAQ?>ldbmzHrZ+gv%>Gz0BcAOV2P1h56=YJvjE17
+z78~GQ3_$cIcoVE=Fg9UMv}m>>hU6PJ-t2iT{C{#UzKd%IjR`=f49LBlS2gfveH114
+zxU!**ue5_NQF4!0-Zt!p*6L4ypxi66<Y}EQp?u~7a*wac5<Exm^8vIO3(8$p)~l1R
+z3sAEfB6qH`v8@uS)<a2^3MfSGyDC(bSk&F6pxnW$=aeXJ129>^uV!u$;$rb*nRW=u
+z9e?W1BIGVo$_4oo3hTg~K6FnJdR8u|6bQ&2?j0R{<-EKL-#DRi=Q`q2&LKamXPI!h
+z^QM?iV*|`AhRU7q;;-pPx-lYlCRFZS4Iia@*amt33X{7~*R9Tq(Ha485h{1rZ3|-m
+z!T})q>KtdYIhe8?31Byy?GZaN=P+@vdod*Xdh-S>FEDOzq7K~?dNd%o1NwmwJ;J>H
+a@A?f2$SP#BDLU!^0000<MNUMnLSTZ{_QF&E
+
+diff --git a/graphics/pokemon/mudkip/back.png b/graphics/pokemon/mudkip/back.png
+index 1b1282d42b42a76bb443079eae6d263e7e3c9cb1..4a93846e3107283b2f5902e4948fd1e7f57fbaae 100644
+GIT binary patch
+literal 2006
+zcmeHH{XY|U9RKdY3?mP%h)j#quya#ba%bitvMrBw<zl4E)0r%ciP561Je-k-P%lI%
+zja(LbK$)kyt4>iKw)1M6C6P`o<n(XctM}{m{=9#BzkhhYKCd^=m$p}1bBiVbK-=5P
+z-G5z4Ux|dR-^%vPSpZ<bmlEi~j;>f+TU%JGemQq~<l*_g{1a(u3E?ykZ~XQh)&wI1
+zeO;uwIsyrUsX-uc03hr3Z}`^0|E7T}LWi$E4LRvg3jie9=&u04x!&%sfvk$R2Zj=Q
+ziKxZye_*v=){>I}E^nf4Vlvr2>J5#8gnN657uG(DhKI)khJIAtxZR1#2yTvyNM$MB
+zY2BaQzaWjv)Yxe}=Vg8reMyz`c0z2JH)b@K`GD(BNFJiBm@+P$mHuwusizpQ?6cR0
+zD^%>R<5(=gQtz+g33$J!462y=bP<NyF{j{VeI(OOx$k(Gn~^mXkQgxI)&GQwo&+ul
+zkvr~h-`bSWWI%HL<A5e}NgN&_$n3$6i=*_hnN<|12ozi*eyWI>qObO)WZBWcqBSW)
+zsqQ08{QJx-_gPTRAsoUCFtPaP_xQ<BUZ+zO>L^4jUfEYj)=s?6Kz~r9*Ub|=i>wro
+zBs6B_@KU0Uv-2x)ys<pbF<(jc<OXtb7h6n$R7Y3h?8sreqjmNC1P|Mpf`Csfz+xdK
+ze2i)Lk{(IR?3A{{)KfXl3}+j+0GH^4fYM;k&_n5ve$?|<|30$Lxo?wcZsF_GGQ<<M
+zibiyyoJ(=muKPH<-(X1qTd;Q?|CHqe;^zl*b~ATbAusbc5~(X@-5t>4bG^o9rN3;S
+z$u!ju+;c9WAw|O%DvAGo8w2oAGD92o*zLAp=nv_wI!B_FV+KWGqxduMy`{?#xZ!Cx
+z^a?8koV@znAPXt4;g>bb_6yu=6-7OFsz8Kad3z_K3^^Tgq|h(X-$g)P4<xmP;~6;a
+z@KjM;7-Y8D0?Hh9va3RowNoG*`1qBNHpX#Dd1}2TBxuBC%xX2Fod%sAdEaVmzmhUo
+ziPW`4oI_x;jJg6yJ%Y+6$A+GiK}nN_P^%@%i)*+a$fKNQ(&5NOW@*#MvhwB0w8wRR
+z&D1^?TXS5omLMIA4J~hU>fjczV+KX$$8?f`yf!v(+~JmMO}%cCvS$o6hvN#aZ5(CZ
+zdvrM!Mt}ZL;--0b=^#&*M)iL}k<ZT4Es`}#5P=H>%0NT#yCMpyw=3!Bwin5GXlzOL
+z1YX0${E-plYPJ92pvpjn2e9Yuu~vjIeBMX2<Ii48A^cnzGlX}YafzDW6{JW!V0X%R
+zOilPQ5<)jZ$yMoXqWbI$#dN5hMHOOmPhri>?u*?j;>EOFI}580u%Wo_8Uq@G66TkQ
+zw0D*m931xz>oUi;hJwcaT!w5h!YOa0`Uq~i9`~oDEY*TUHkdgLVqZ_gNDG=0nWe2!
+zA9MA`2Ze1t*-gjpK}_teD;=FX(5EKCsnSM<h8gP%!sm;$ZqrZaZ-vLfiq8({gk(F#
+zpo83$1eZw%F%fS=+B~~&lDY}D&&@-Pbn`=F{)-X8cf)L}Ts7^E?t}q<@A8*#-1(n3
+zW|({+4A!&9VmCad;VJ~zgZYmqF^tuEr6owJwL4A>4yHOxFTa+xAnxeda+G%=zI@Fp
+zqS$tb+!@VxTL}eS_>+CBM3sp1LRH|Z;tHQN&dtk_X@|EV(n_}8M8<LsE!>c*d&ggO
+zb(4FXxRE%r?6Y#hWQ(bTb83{(cqU&e&iHK==GYL1p%V3qzAmk|2hF{iOwalcQ%XV0
+
+delta 614
+zcmV-s0-62R5Ay_&7=Hu<00013M{Ml?001yhOjJcNq*AoK_MEKVi=4E3b9?`^Qudrd
+z&4WRtds@ZK|NsC0d&U1+tmZL;#Y#$p5D*Y;%Vu)`0004WQchC<K<3zH0005;Nkl<Z
+zNQvFlKWp1S6aa8R4Dk|&hrDFyhd4ZhKngZ3B!QGpYC3l5d4J7PYf1lXS_&oDi$06&
+zZfyrYnQUHksmBhA`UPs5_fB^1)XH*bI)pqB2EU)*dv~X^<2=a7vRP%mfx}UyNHM|B
+z>p)UfB4Kb*F@gq@y8yfuh*yIx4RH4FpmBG=BVxsnIjC5svlgWP2h1wK)jF`X4m224
+zy)YT=BgQL5BY&L`7)PU3BE=XfA4Q|$_fOmT=Qc8kI0_|d;UE{kkVAvQ-8c$!v5f{4
+zuGd~jLN8Irn1>izJ!&Bbl?ZZx!(kNRI}30HF7XkUCB}#^EzsAZT|Yw;-@Ff23oQnp
+zZ1A-J!ajrdz6HJ%LD-__xeeZUUB9qQdUgW~$QPd1wSP8>n+yVL2q|Uv)CS?+x$D18
+zmiZ}xn|u!X0EfQHIGdoF_M|i$v2jiT0uBP5N2QeClb)$i+t~piu)8>niJB64{mKCP
+zJ%9_%RG$O^KcE>-Ob-DZqPaYW>_=Tn-|U0a(ZF@{qeOn~d!~T_a7+~#F*vos2IM`C
+z7rQ`U(_hXzwFPJy@JEP+*ynWF&C)}-0``+6i7)Z5ydJ_80v^S&Qdebv4+2^OI`Eiw
+z`KKxaPg(#?;ZpwlycF;{o?ZSXFq<n?0`7NQ1Lx4R1<^4Wv;Y7A07*qoM6N<$g5oC>
+AOaK4?
+
+diff --git a/graphics/pokemon/mudkip/front.png b/graphics/pokemon/mudkip/front.png
+index 15405baf9174ebafd0122b00e1b8a904e2f524d4..151efa4687d2cf824cc5d9a69f69aeb8d3a413a9 100644
+GIT binary patch
+literal 2142
+zcmeH{`#TeQ9LK+#+boxDQf%&*E!R!1D;?8gE-6tig|x_$`z<->Y_1XIAfBPzO4&w{
+zBjuFVv_+jG=FTC~38xVu!r2c0#(8=_&*$@gp3n1qetA9b=bhv3<|GeC!vO&DF3t`o
+zww<&yFp2GbyERn^fCO+q>Pb!xy(Jclm&7%r3+V&AJbr#mN=j^?8`;G~cb}1&suBtT
+zlaY~zNk~XRAd&z;w%>o~2Z8?$f!ao^olHaGPq>`~q))?C0Howx9PB+4Z_WG6$9}Yd
+ztqh~yXRp!5*p5ZlaizkAf7^ALE{0YnAypnXrfJDx4zDa`w5Wqt*cvlY=D|L-bmxJa
+z7#=!Z#IMZ3PDfyE_8-%E6k7qC&0k=RLK^E>#Z1}bgZrk5nDsSL3xdVWVupH#6z4P;
+z?=3wkRD?A_k(|B#<cuT+-<R!qx_)kJ<bC}DKqAA>y$L<{0R8moR+pWR2udIzs*UrK
+z1haN!Q)WEHEwY!C`SdsyeCY^DBLyo{Ywb&-mWS%3z&L=w4~kDD0egoK1@!LEXNar1
+zX*kX`U#j;Wc6^>R<(`@Jz(L@}W(8w7{fN{Ye6Bw)2xmWDO|^ZoX?J}of@%~?Uamy$
+zhY)(4<Boo?o+m}*J&Y7}`bTon1yi$J;%k+V&%`c9yIxEH-YT4DsDv~-?qp!i9Vv*0
+zbs2Flt!V@~@K}Ie_WPm}42LL_ENK<pxym3KhDtD4l&T8it(g(P#cTU(ie6C~U(f1F
+zrG(R)kQyB&%+5m@VPoNQqz=bm?<o@`-eGZtFH@`<{bECrYM#r{v*yGi_q;Xi8J?<~
+zxrLjO^QgsxyS<`RQz!}B9dp^KTP`ohEzsK9V>$|C);KXR&)A0Jck_exK$f{WdZE?f
+z-%2}L%o|(0`S9FMXzn3&6+#m`6OU9j>pR~m+y!!i9~85fJ6ZlMM=I|pC~Nc~^UIp-
+z7tTUX^*lH7$%>*Y(4REZZ22~tMb3wU3|4$s^fO-yjePz-f_TdE4!($I5H%FFs&Wp6
+zDJx+{KPwQJ5bxBqZdwDke7RShprKN0a6<+@AcjUCW6FI*c#KHufI!s?mDk}n<_21{
+z_w+AGQJj?lw5{J#=<e~D2-zP}IQhk^OD@BQ?h2p5t+O5Hz^S(8GJcmjiCjuLX9vNu
+z=vPaF8}d4}s|fqrN`KppQmHd+MnMWL(+$d7&!lDxQH_jU=Y=r}hyB(V_+vrZ0zY`1
+z5JrHj+iQ8Cm?_sFTk=rZ`Par~R~!j^OO>8fQ_efi0Y}gxkiY%cC`Gm@N-|p@PpN`U
+zQlzZr@N|-8^7`YS7NGWvUQvbd0W+_L?;y)0qv`rG{q@41BLSdNZAvCwb&)nCrOXCL
+zxEw0sn3p}$w_FgWueJ83-BplMc&Z1gCgCye^>!n>%HLhuc&Y6|v|59-AE_Qw4XGGJ
+zMqN7J5Imwcwu?hjMjSwqRXN}AV%DIAbK&&mXLB1#Q*EYM;7PXaeS;x9J#RY|+6gj{
+z#DpSG73xLy!^C*ip^EY|nS<nluE^&d?5|j6MDr%+eBorMl8Kt8fn-qE<VKz0rpv^U
+zMcGO2UJD6;xQ~;l&Tza}giD8Kzp<uwxSLLeA#U=nL}gV31ZvlPWgLB?-<0^>M?76;
+zT)J#4Gta$rHa_5$J~mQbOV6TxLSgjH?HQYgFO_8{5-_Wggt%3`PZw>2E2a-jFy21v
+zZvI@Liv4t4YB$xD&An#k-_QTvEw-7YRrJ*u;iv-7Q*dkb2IwElTQ7I6E-!bPWLjnr
+zzmED+v)IyqYW|yl$DE|tFR#^S2YPx}#%TWCVUH-k3YEY=gK^`%ovoM;Z25H>bTW3*
+zi*b0-;KO_LZ24;EmlTYScBDXkP84go*#!l&>Fs`r(m9vT@*;}2CQ#2#zpF|{>x%3B
+eX>-494GA>^6VHhV``9WwjqgHsb9iu=lJ*}2Mu7JK
+
+delta 559
+zcmV+~0?_^55WEDC7=Hu<00013M{Ml?001yhOjJcNq*AoK_MEKVi=4E3b9?`^Qudrd
+z&4WRtds@ZK|NsC0d&U1+tmZL;#Y#$p5D*Y;%Vu)`0004WQchC<K<3zH0005HNkl<Z
+zNQv!}u}{K46vi)+!NgF#)R=T-H?iX4K%$9@i`%J#jxDSX;(z48AnAZ6jeky&O%|>&
+zXyRb6kmz87MP@|wJ!I(thlzuW-}?Rf-FvU^5%RCUQ8H{PeJ$`SN+9AsS4C(yKLNT5
+z;BhA4&j8xL2YBH7Dj<nKO95yA)D`{^X#5K3%mAVq)Tk&jDwkhj5cOf7iJdV&>3JRi
+zoZ}-2)7_GRM}GhU1aOwShOs0AZ3NJVh=l99%aX5os3A}%bB3X(CzRlMWd!{0wtH<}
+z$LzDSms+DXOsLxD&nDe8XbiZpi>2PX$D0AS_OlMvDUAd3_GxL*=e*aivV$Tkn3U@A
+z5{lLle9Z^_TgKQS2E@CVFIqXQuNhd3?Vlj9Ce@J5!GDhc#KHu4fyO84IJvCAh|mUr
+z6~+<>v7JIjh&!6kv#bNahU626Tv60Y?)3PH>S<jDVAvgey7TdH8KzCCgl|BEPw9>T
+zg>sW4iMv!PgFsX6VWdc`r&hm#@qI!i#r?JpeiTmjVe7^79{5pfvJaQnKxiPQoo73E
+xgT1NurzoC=_SPi}mFA-AzRBXJ(*D<9>I+(~275ROw(|f0002ovPDHLkV1ij+6qEn}
+
+diff --git a/graphics/pokemon/mudkip/icon.png b/graphics/pokemon/mudkip/icon.png
+index 5a657aa9161c4b2a911d1dc12e72afe7f811f540..579863d561aa05f57fd478d9ebd9510ce5017148 100644
+GIT binary patch
+literal 1118
+zcmeAS@N?(olHy`uVBq!ia0vp^3P9|@!3-pQ0$S%VFfcO&_=LD7&1r6KF5bI$@Bjb*
+z_bze#_D%C@lH<22n%&j^lf2HpE1vUz%aSEW|7We4lav(Y=;#R4J_<%dVAzC!{-)?z
+zK+iCi1o;IsI6S+N24wSix;TbZ%y}Dfy6=br&uU}FExl9z{J+0WD8cL2%vz7?sH^HB
+z(#Kn-<o@RExFWMYa>c68qG>C_|1Hj!Tahll`G%|ncgj6Jc7d2S*F?{RE2}g;`i-VF
+zUR$;6{F9lI33X8g*-8mB%Jx}gd^>R3Jlx=X-;|&m$+ip6D1AC0;!*gPOMJqPWEBn7
+zx9=^}t*cy4U)XgyrrjZ2sI<PrWxZR+oPcsc!2{;K0(;VWq#0We1|AY~RGD(}b>xCX
+zfq##iw>$c=abD!8?tkmfRC&Jt^_J|fg+0j$ud)^|+q?U;i|I+v2Ae55g*#uanNYgs
+z=`54pzh#nl#P`pyJ#4)%?LSM&etsaD^Ka(w+K7+$@3s3g*SSx&Q!#l4ig8a@KbLh*
+G2~7a(C9(bh
+
+delta 290
+zcmV+-0p0%I2;l;d7!3pi0001qplF={001zNB{Y9osgPs<0004WQchC<K<3zH0002r
+zNkl<ZIF03!K?=e^3`OSz<}hx1uTdy;X%?lkZK3FOM#v#t>ZUEYm?;d#>B43l4<KlE
+zdHjSQ@|F6zf++*uWCHsM;tUIztr-<;*F`|B!Rbyf0D)RUQ`i@9WkF<(tye`Es5n%$
+zD0Y8DUTg6J4iPn<PGX}&bd^c$-@2~3Hi^?soN3;{5r<29%rMYfzaaHT#aR!S<sn1>
+zIk+bx=#f=OKsckHNdVBfj?b2Ogys9#ufQ$ew<tTHBnpR}7sZ}i)H+c(=2>&%9+=rx
+o5|0>%@zGq<>@IP@ujb<k!EuwZW|y)r000UA07*qoM6N<$f{@UB&;S4c
+
+diff --git a/graphics/pokemon/mudkip/normal.pal b/graphics/pokemon/mudkip/normal.pal
+index bc3cc1b65..fbe262925 100644
+--- a/graphics/pokemon/mudkip/normal.pal
++++ b/graphics/pokemon/mudkip/normal.pal
+@@ -1,19 +1,19 @@
+ JASC-PAL
+ 0100
+ 16
+-49 164 82
+-180 189 246
+-156 172 222
+-139 156 180
+-123 115 123
+-255 180 82
+-246 156 65
+-205 131 65
+-164 123 90
+-197 205 255
++123 106 156
+ 255 255 255
+-123 197 255
+-90 172 230
+-49 131 197
+-74 74 131
+-16 16 16
++241 255 162
++218 238 131
++213 197 140
++198 143 113
++124 124 114
++98 78 69
++73 45 35
++40 43 49
++25 19 18
++16 8 7
++7 6 8
++3 3 5
++1 1 4
++0 0 1
+diff --git a/graphics/pokemon/mudkip/shiny.pal b/graphics/pokemon/mudkip/shiny.pal
+index ef5447b60..fbe262925 100644
+--- a/graphics/pokemon/mudkip/shiny.pal
++++ b/graphics/pokemon/mudkip/shiny.pal
+@@ -1,19 +1,19 @@
+ JASC-PAL
+ 0100
+ 16
+-49 164 82
+-255 238 156
+-255 205 106
+-230 172 90
+-213 156 74
+-255 180 82
+-246 156 65
+-205 131 65
+-164 123 90
+-255 246 197
++123 106 156
+ 255 255 255
+-222 156 238
+-197 115 222
+-139 82 156
+-106 49 123
+-16 16 16
++241 255 162
++218 238 131
++213 197 140
++198 143 113
++124 124 114
++98 78 69
++73 45 35
++40 43 49
++25 19 18
++16 8 7
++7 6 8
++3 3 5
++1 1 4
++0 0 1
+diff --git a/graphics/pokemon/torchic/anim_front.png b/graphics/pokemon/torchic/anim_front.png
+index c1aa67fd13c5a25d7e07ddb3c2acc1600cb31f1a..e642591c6a2740673e98cf7f25ba7d29ec0d28b9 100644
+GIT binary patch
+literal 1723
+zcmeAS@N?(olHy`uVBq!ia0vp^4nW+%!3-pO;^#*&FfcO&_=LDtXU+Nl|NlQA{{QRF
+zg$*lbrt~*PosA4nD@>1$4tEZZGI2|_*0vH+3}DeZ#3B>})IJJELtxm1z<JKI@<7ip
+zmIV0)GdMiEkp|2dnVv3=Ar*7p&Uk%kvlT~ct+oqC!n^-@-*q0XtlqM9zx{O|>!?_N
+z4$BP5HuvR8dYYj%#?LK{?{CxhD*q*Zz?LOnYt^rJ`yC&Y+y5%~Qt$dfu`2YvXM}KJ
+z^8xnyk4`RMgd5GR7nP?aMYSbeR(HA??eB0>py0;jjjs>!FOA>T-jS)YZkPA2FK5<Q
+z8}HcIuOR68)+!<7JcsCa4}ON;71J`4lI}D9d};Od`X24QKSK0<Ld1?Atl>1+yxpU_
+zYT=^ojMJ<XI=FjPicIvr*D&1hS`o)>{B_HI<~6rM#lxKT-@g0WsGzb^eGYTh{%O~8
+zAN<;(z98%`Q$tRs<yOW?0j8G=8E2H=Wb+Vy6mG4d^ho<aKTGM{|I4Kr>{}ju5>{Zi
+z(H!tmo^cyf!vUrrf(o<iI~`x~TQ2zce*HeiFDw`Q7<lc^`>a{w%^`hY?>z>GV#Oa^
+zAH80@p6&U}@{RQZ&RP6#T6;?Oq%b}|yZ0`W$BqQ^!*!=rmv7BheAc9~kNL*oi@c%F
+zlxp2eo*&Y(_|0X||6$(IL(}9o7L;wXiDrDuB`~9PW_tj?@Q<@+&MI?$VijOynmUJ7
+zQ0;C$#~U^UhJy06(gl+ybes1#{=UGPEx6WH{Q99+S}&SrM&xNq_UATiUYYYU|J=Gm
+zCVh`R=6+!BP2S7S(X;Tv4|WC{we=srRyB&L-Hx%jc}d5CVL^r>gBxf0<m=fry~?R#
+zd5lv+s>D@noD$+0<>Yq@a2}9${MIOOQv8N{lv2lw)!%fO4u>*aF}-hKF#AGQ_^({Q
+zL+TCzyz$E!8Eyx%pW*nTtiaT8Pc5czWoybF#&bmpZ8A?nV#<&9RNHP5y`aaK8|jnI
+z;4C1|=**t-;C3^Q+@Blr>B~yzMKk%y<vO<s7;fL0={MtyCC9t9t*x_PaalzAIOn~&
+z`0Uy&C5byb8PCL~m>u=sQT9x}$o2WtuBA8G9eIVVS}Ij$U3awo&VShIQCztFJz-=0
+z8_As;me~DhS4p^X-JM&kX~*jGH|`i5j9m8emOanH%O<|F?q4<$<ebLFr|@QD$;U-|
+zPA%u0y=ynK!i!q<r8CaQPrh#=yQQg&*W9G`g6#i--W{3sUsk+cDev%?|3k3-h2?b%
+z{QoYn`^sGZiv2>c{etCn5B&c=c)wD9%JMpeo$7X9o7XL`GqC;IT<`jy(W+x_>72=T
+Q&w+{)Pgg&ebxsLQ05FllD*ylh
+
+delta 860
+zcmV-i1Ec)A4d(`s7=Hu<0000<uX0%c001yhOjJcNq*DLhl-0eIw3K^$b9?{QV*kZb
+z)tottds>{$|NsC0|D-wpYB|+fIa)a}5D*a8nW(Y=0004WQchC<K<3zH0008zNkl<Z
+zScUDDzit{q5XM)c;2PiQoW_l1iHatQkej^70*#gG))XPBuzzW+U`sJqMCLux@Br`z
+z>_HqUe<bgoU0D=&2a1#kSq_)k1*gf*BBhJsDQLd$zS+42=10h5{e3xM$F8?1Zg8}2
+zF|<15Eu~e|;Lv)JQd&m?inI;^^c8A2r*$|%^#(N@1vN&ijW9$FjD2Pe_-tb>SaZU3
+zb<75by`0=Cy?=ouWSJ0SrJIlGW}Hh22^WYihQlErXIW;BcdtfJoX?Q<<Z3Wb37pT(
+z`qn@dB=CvZkZ6NSFh{ujx6X|-cw#gd@KqUm+}$hb`ltFFn+=iR{I0JIk;yPiE_cP+
+zU`%kO@9*;25<LTnK9))%PSGhy0{66@!u%>-&TUgdrGINZLhgcisZhE^Z<Ac4Qpztq
+zEP!+mPoz9%EXNGrt4#@C$ABUc4y7m25$Lb6gdP>V)vDHBU<U7i^G|UtO|etDFy&ar
+zQleudJc2ppHKxObs*2G7LY5nJLh^LBcxE#YXMR?;L=^U)=S~SX6t+XZJV&pBkjjo<
+zwmc7p#eb7i%k%Ia3VUbPAqkm#cKxv)>z}N4XM=8`6IJk6*KtA%1a)aG1j4AJj-#MW
+zRbk8DVNB~7J&+=621>ucIuzM;V9~Q|`VRP`jp#0HoN=Q0!^l9I9^kL`79pIitKm@d
+z2ZlI8v4et#-Z?<j&7TcM8V(d4EV8MgLps_(7k_;|dY}vATJ`$;VJ#!8e;N6bN4Y?I
+zq?f)gChzaj-Ji%(>FL_=!FULGhhm&3XoA{!Jj(Dhkc3;OSV!o>w&GH3zzf)kTA$$?
+zBLj#0+I@o>y1*CmI0&$a?qO2{NUehyelQInj3WF1znK+)pe=fA1t165W^|it0GVPD
+z*;NWa;%_}HLTCVq&(Q6ft^g!Q_qPX*7><bVZ!cd?anysVl)`=6b}#tl?a*r2JKfo{
+mbs#sD4Gcs)vH>vu-}(iX@f0xw)wkOK0000<MNUMnLSTZ8OqTor
+
+diff --git a/graphics/pokemon/torchic/back.png b/graphics/pokemon/torchic/back.png
+index ed2c53879679829eb429414e7c04fbaaaefb0d8a..ba4e6e55467bcc79ac90cebfb72a868de4e6ed61 100644
+GIT binary patch
+literal 1615
+zcmeAS@N?(olHy`uVBq!ia0vp^4j|0I3?%1nZ+yeRz|0Wf6XIH(HRu2T|Nnsa|F1h2
+zHmsbP(%%?$HZnY|Fg-dt+&MhT#4XiY+e$<+fJN&Ni%<+u`zRO<fngH@=Q+>H13kl7
+z666=m;PC858Uq8<Ur!gukcv5PryUe~q`>34TVciomw*5BpYL&)sFnNmOwlvlDXZR_
+z@p=~A{+GSdM#cB<tMuxO8^vnB?&>EoJA7eP-2eM%PCsLVwTs;jW!7)pit_Jtm3%ri
+zZhJi8Ros8mRVDQl?}t-QU*<izc~gY3V`|Vog%fL-BK<T|l^SbV8jqfepEYZ%NV5Q=
+zj<thZ$Mc4hd1*5_{(Ta>v;6*{Z+rquPF!ibAEuvXxFWJl@_?t$kEi$dTQIIzHM38^
+z>y49|)-~qi$KUN^d9jX7OYMwKkI0u5Qdb!-h#t5*TfQNvrQgt>;j-uf=><Fvr|(R;
+z^6gsvW|oYa?bT6V&)zn2O@7U>$DZvTS5d_Zt;@eIsXzFs#xUzE>x_N-*gbCVV)%05
+zuX{u3feX9~>KL9);`z%I@Fd~MUhmNVd=r8e-ROFrB>qa8VQs`I#=sQ?k2dG7(Ql}(
+zEjpxP<HPo)<)V2**0VVoUl@;BJ!`tplyzfja^3TJ7JY$z%S4J5cd}ghwPwzR<Ce?;
+zJq!7ii%&mg3otcYtrcx{ooRPg4~wwTmQSn;*cimhov$;uXbbx&E|y^5x+{D?i^i>s
+z4IAo24+j;^b{Ew*XXrlX7H%%pFlnd%7V8E#hFrO$bB?+iGCRBx3pgAU6zr1RqRM#S
+zIm29rciWgJbo(8SyTIz;&v@y&(tU<IO6;-?e~bH6Jw1yUKZLm(hTfgac0jhh#w+E-
+zQCAj!hC9(hf#z#P7pYwEmk8YAzTh>7OzAa-#RA8;ToZ1tXV}O5Xq#>aL(j@zkJd4m
+z&QoBxyLbN4S}mUrRtI(l$%0tsZz4JjxA`<u*VkS6mB@ayFXGE3p#a7e3<}YO&tJJW
+zJQ905IoG$qWx=VYH;Qo#x1NP;4O0(XtNs5Pe@1PP*GxmFy)XXR#N{%r`5P_J6RhN?
+zIZym^p}NoRif8xD60g{53t#`HuB&P{XZ`hmx!sCghUdOiEchYWJwYPw?DYELc%i;x
+zg{2<~3!UB4bIYsFIQ@O|I^xc)?dFGO@B5hlyhH!(?fuK_Cpe|(*@-UQ0m|Z@u6{1-
+HoD!M<grJYp
+
+delta 563
+zcmV-30?hr-48R1C7=Hu<00013M{Ml?001yhOjJcNq*DLhl-0eIw3K^$b9?{QV*kZb
+z)tottds>{$|NsC0|D-wpYB|+fIa)a}5D*a8nW(Y=0004WQchC<K<3zH0005LNkl<Z
+zNQvE)y;8zJ6ou1CmAr$MJ<k%!3uHs1V-+cMhANYSp9dmXYJZVk#s-JN&BQ{a2!Y0t
+zLcp8d!~ym$w2o&clj3|i_h*wB#y`^8?agtZW;fc$0a6k=tVSeJb94~_5MTzbE@Dc6
+zXrBOFrv{e>Fi8;+5`qK0Q~+*E2fW*1QG<Apf^H1fPysFqn8Fj%i~-O4M*-0zxhkrl
+zzT5-JUI=M&9Dgta;(6H<0F*y#iuiuU{OMgB4{>7VU1#*;u@emj8X~`+(}cxw3<L^T
+z8KaCr00@ovriFw*c)$Ya4lqoSF(e>*7(_@7S%K0hf;OU&3S=c9GAPrv@GGT>Ltu6a
+zcxxX5uO|RwzUQ-Z71)ayT_|Iie1~8YCBU#a=atX7GJhp#%_YL%mLR@i&3UB+3)mqv
+zKJ>X2ey(h>O86q1IZtxps3Qp9uf9IpLy1q@m4I!BnuN<Lp{423ZpeQ?(7=Ip%Ncvb
+zbD9(U6EAi>?grg%hxPCt0GM#bu=h<$F0wcc4Y1}VfgV*^LkJJBa$_U?9DjaQPfbB=
+zbp^uZA}rkIe4+8-7t;^>sa0=lfmPUB8pnXYs~_Skl1<(q;?@8F002ovPDHLkV1n{D
+B_?Q3y
+
+diff --git a/graphics/pokemon/torchic/front.png b/graphics/pokemon/torchic/front.png
+index a8eeb26999bc82d372aff0ac6c0bfa771eae01e7..014bfd7ce27c9f3bf109809b1dc75c1db92c2d2d 100644
+GIT binary patch
+literal 1664
+zcmeAS@N?(olHy`uVBq!ia0vp^4j|0I3?%1nZ+yeRz|0Wf6XIH(HRu2T|Nnsa|F1h2
+zHmsbP(%%?$HZnY|Fg-dt+&MhT#4XiY+e$<+fJN&Ni%<+u`zRO<fngH@=Q+>H13kl7
+z666=m;PC858Zcw%dAc};RLprh?d_#z3y#)WZ5NJ&cmMOs`3$qlw`|>Ce%{BrZmxO@
+zOUbN%*O$)l_7eSnrt;jG{<pI)&Hcywf#=}vu2uVf%M1Lt+iyANZ@gelSKQTVAvYyC
+zfgexw<2pL(ls@FSe>vylb35qGFBgsDFE}+MnfR)W`0oB#_{ICXfZ^FAq5PiH<9>dX
+zVB`NLs-m<qR=wwy=)y;mFBuaAu5QxtdBd(yA3OcuEdQnA`(L$oo_c06GoLZ-n^<O`
+ze#jTY13~I6g$rl8oICb*CO?C8%d4#h!T!Ik53IWDn<((>^1Hb0t*39ZKa>jiy?4ty
+z?(5fW8MnR?XGpnyVx{bamQ^$Rqz_b`D07%4u>Y2)pkO>>o!W}mzw~VxerU2xpU=Q}
+zK(M9jKgR|}1}4@I$_{1!#hS0k7dd>sA79J-f^|VGgOuKSpEXOOIjj%twPSF|R{X*B
+zQQ^z4v`MABzxgtn9y0Hp5O_RVtl-|A+sX|s+`A-yX->a$ZC&dO?nOWN68Mjsgv{*z
+z()Z$AYiPkY(FD1Nw%x6|wn-1)<W!n5yyX+P(K@p|fM58>*)wOAIX|%qFfvWO!z!qD
+zH=pATqXI)gd0Od$NfVCFK7OEfM$^`gYqPqu6H7&X4*KXsdmT%*evqXd{cHB-)dpuj
+z+XSosar_)JpOGnB!{k3BL;uO_y1j7=T2Jm1*N>XT%E2I_%W^>HVcw^zv+FCDojIi3
+zFv)9vQ;R#t8|DWe3%MpT)CfM2>6lp4Si4NOsUvP{xS+&4rUmPMwl>~v3EX`tKU>I-
+zu_^1v4K{{1?y?({F7!8WF#MWPV7X0f(nq!(ry3=TCPWvO9PO!=xy7(0+TnKBORfZt
+zN6HDW8hC2zCmw9>{#%+Bb$zSqgGX1*QaJ>(qh~*BJ2|KM!M&)69V__`xElK2ys>!g
+zT2ohpiX!$IyH8|wdG9EHI)Brm&t<Ne-&_L@xA7&;>%6vc#r1!gQrhoIe|(%fqtdZo
+z)ycE=gTLp2RsG@IT#k3HhMSn@6iiFq`Q1PG#U`EZXa6_pxHMflz}O<^Z7zSxd7n<k
+zt9N`23E$>UN!s_%r|xpmB?j49av47tsQ-H@_wj<=-|JuaJ)XtwuKc7J3n~*lUHx3v
+IIVCg!0Fw>1>i_@%
+
+delta 535
+zcmV+y0_gpK4WtB+7=Hu<00013M{Ml?001yhOjJcNq*DLhl-0eIw3K^$b9?{QV*kZb
+z)tottds>{$|NsC0|D-wpYB|+fIa)a}5D*a8nW(Y=0004WQchC<K<3zH0004^Nkl<Z
+zNQv!|u}%U(6h&V`;WjQo8yjLmMQ4nSKQarAv0|hUtrl%akbgv_f=}@SmOtPvL=&}O
+zX0ftjcWF!rQE&!{)x0sW)mv<H&)j);-U9sV_j1}zyYDj^a8|wr@SAYWm`4H*D{nBy
+z%4EO>E2{u@MgljitS0bYNT6ORapqOqZ4%)8iC5M4lDdM|hJ2-_8F2XN@KyU&A|XkH
+z7--)-rkfy2seckWgfDu%9uATuF~_^3z7k?eTo0ol&<TiBv%eW=sRSIFfyoNc3FZhF
+zzkM`z$clat;FpYd%-^*&{?Oln83+a9{7wU*2}mdRd9enJ39iiL@|Z5j86bQp6hsu0
+zEnuSdv~FR3N*B@AQYl{hA+Za{#zOm&+$MBlDdlsQ3V(pxlZKQRoG&Th&8tcEJ60GG
+z;V{++>&ic;61q&F?|Y?V3dkNIK1QWDrlxdN%YlrfBx_7CR6XUG^3_7MA~FDA@q-Vr
+zjMLek4FG4_Dq12k2Zu|iKm(brcCI)jR{^lUlPg-zD`2*LWjU|jA+y`EmIRn)?fxIu
+ZCkB)VtPry8Tsi;%002ovPDHLkV1fgd@9F>m
+
+diff --git a/graphics/pokemon/torchic/icon.png b/graphics/pokemon/torchic/icon.png
+index 6346e2272ec9d41dd8a33e135da7cd5b89039d55..9f1bd5576acaa3510b70066b958ddd1086cb7f1d 100644
+GIT binary patch
+literal 1126
+zcmeAS@N?(olHy`uVBq!ia0vp^3P9|@!3-pQ0$S%VFfcO&_=LD7&1r6KF5bI$@Bjb*
+z_bze#_D%C@lH<22n%&j^lf2HpE1vUz%aSEW|7We4lav(Y=;#R4J_<%dVAzC!{-)?z
+zK+iCi1o;IsI6S+N24stPx;TbZ%y~QIbly<~9v9mqPSb7D{{7F_E*AczusuusZpcj5
+zjx!q#8E?KZFS>BIk$>IpV8<4_A1p6+DDSy-$Yf&7W|`U@i>)p*6kdKed5xW+-;^yz
+zSq<C#&qxa-Glz&OIvmQn#}Fml7~N&OV4FYtlvSqO3%~E0a*27>#{0~RDp*x?HQ!2_
+zJ%~`z@C)4Mq4H8}fq#TX;*m>?lLRiV51*h_%r9WLZflX|D@He7))m1M&oQ(lN~rLb
+zCNUgO=Hh7J4cN)RdGN~GSE*O4cAdT@8oh$?TXBPXf_-ajaDk<5d%)&250B4hHs_~(
+z>@M~z4vGu%`h3)Ev&^ERbB`_h_THZ{XY=2=e_rxe{c7GT|K+m$oB!Y2^}X&{JzOy}
+Q+5!~wp00i_>zopr07I~^*8l(j
+
+delta 274
+zcmV+t0qy?g2+{(O7!3pi0001qplF={001zNB{Y9osgPs<0004WQchC<K<3zH0002c
+zNkl<ZIF03!Jr2S!3`Tu|_Bg!&KU=%RYnVtkIv}MRT(tv%%|(LHt)XT5%mgFi+wx+|
+zQT&L0KY7yU6gT?baCKFH4J*(y8wB}fYkDjg+S(mDC}`(EOJ2;N0dQYykOjLgJOCQ`
+z{BU||?C4w%Qz&B*wg~KwS@31D3I<y!h?Jx%D5!!L`s*aM{K+3}1I4A$N=05OrLxFe
+zAs9WEYLl(^HU9E2>v05dn}LU(w0Hx;r+tfl<iR!$1)_9zyVwB;R>HT!$h$BT>gdBf
+Y0l%PW!o2DH#{d8T07*qoM6N<$g1>}!Y5)KL
+
+diff --git a/graphics/pokemon/torchic/normal.pal b/graphics/pokemon/torchic/normal.pal
+index 373cb59b7..52433158f 100644
+--- a/graphics/pokemon/torchic/normal.pal
++++ b/graphics/pokemon/torchic/normal.pal
+@@ -1,19 +1,19 @@
+ JASC-PAL
+ 0100
+ 16
+-49 164 82
+-255 222 148
+-213 189 148
+-180 148 123
+-123 115 123
+-255 213 98
+-255 197 82
+-213 156 57
+-139 123 90
+-156 205 255
++123 106 156
+ 255 255 255
+-255 164 57
+-255 106 57
+-213 90 57
+-90 57 49
+-16 16 16
++254 255 255
++255 255 250
++220 208 176
++169 153 100
++143 129 90
++205 89 87
++102 113 103
++91 91 87
++67 87 90
++52 70 101
++59 43 58
++20 33 80
++4 42 194
++4 18 92
+diff --git a/graphics/pokemon/torchic/shiny.pal b/graphics/pokemon/torchic/shiny.pal
+index 368d18494..52433158f 100644
+--- a/graphics/pokemon/torchic/shiny.pal
++++ b/graphics/pokemon/torchic/shiny.pal
+@@ -1,19 +1,19 @@
+ JASC-PAL
+ 0100
+ 16
+-49 164 82
+-222 180 131
+-172 123 90
+-123 90 74
+-123 115 123
+-255 164 57
+-238 90 41
+-189 57 24
+-123 90 74
+-156 205 255
++123 106 156
+ 255 255 255
+-255 238 172
+-255 222 115
+-230 164 74
+-90 57 49
+-16 16 16
++254 255 255
++255 255 250
++220 208 176
++169 153 100
++143 129 90
++205 89 87
++102 113 103
++91 91 87
++67 87 90
++52 70 101
++59 43 58
++20 33 80
++4 42 194
++4 18 92
+diff --git a/graphics/pokemon/treecko/anim_front.png b/graphics/pokemon/treecko/anim_front.png
+index ce98864ea08787fcfc46a0d26daa3788a69d567e..bf8501f2addaabb6009181e9a5088266a0cc0406 100644
+GIT binary patch
+literal 1840
+zcmeAS@N?(olHy`uVBq!ia0vp^4nW+%!3-pO;^#*&FfcO&_=LDtXU+Nl|No!=|DWue
+zb!SHH^$C@G`+D}bRxK<@PYsSWw@6mdNsy9p<&*Yd6Lw-^mIrDd1*0J_Y(jwB>#;7-
+zGmIrce!&b5&u*jvGsZnn7srr_Id5m&ELv*C<9ha^!b#!(|F>`7*22iF?)mj{twX41
+z`mNK^la_BQ&bM*f>7KoIO8s<k<}LP$U9RVTvT4*C1S%X=Ke<$<!;E3SVpl7N`ukw7
+z17{kp)m=^Ru$S-eIC3hW!Ld$BglAsJOJRc^1;e+`7S^gynPlmpr8Mc|#8x5h$yN-H
+z-JLXD7kzh}Dm6_Y{UML+uZ)&oYs5F7w_yl7IHy~npNHpzi^kH<_<(9TF}HJ}OwV&G
+z{(7#A=lbz;L3!rp0v-*KPg4%vbvmg3hyBytLw3wjYjpzpm9AMYRA@f>C7nI&Us$X5
+zobCAyP4P?49@tP|k>Se}&e!;vZI4hF)1Cyr_iBC(aVLYn7`mOj`bBs_#%`NuXA+$_
+zXYVVW8?}|YdzF66BHIr>hYWLA4k|g^@_Ml~%wuywW<0~pB$32h90dWEMQ^!Y><vHK
+zV&D_=WvOR}j?JcolZQl<r5V)Dw11znpRq%8p4GvL$}3y%t(x^hbaT<>0@f!}E-myw
+z<HEvVwfyjVjygZZ$WMmHB%HilGzC5~%;8Xx-1+6T4u{pAQ_Vt7DQeGp^yV#EH1#i6
+z#+%X$3)vM9@ND+^bnm)Wk5(LmNRo=x7sZFOJ^UL^HR(SSF)HpUdEu<2^uqG|r_#5p
+zJ=TUhWJ`8QI&iHBKeWm+hGA*RHntw288W{1Pd8{azP#5O)Wv7XAb7un@s&wUylJcP
+zf}5R<nLe{wL#A|0X8Lw<VSM%46R&M1&dU82;Tz4j!d~#@#iWMZ9PZ8<_AO!M4F6b_
+zS^c>p^bbyYUBz4yVev%qh>M-!^VKq9PYybs-z>*+?AC5(E$@BS8L5}&c^!O_TDw7k
+zUvrDvV%A{e`8o?GzVmw_+HUlIv*CsEhC2+kw}1Vr64>CH=z5>ghVd8Ufk*4p*&`;F
+zbC<4aWPZ3O^#V%=zu2pk13NwKna><rD|qOgb>h>CcTPP!zQhPzzr0hnp>*oriEIwa
+zc`e)rdLO697W&_0+_r*){anwES932LmmfX&`0qmnx7(39=@tUzdsiRYA+6{A;hx!b
+z2_`L%DMFr$I6pEJoPNGp=k%w>Ivwwtr3|~xG#<^qXZc=y@54#&mIrcASRk(%;q$tH
+zZ}*cbne$OrJ$cca=P=aFWPHwX@b}Ta@)sw>gdgs+J{R-L^L@+#->d%u&cEUnINvb;
+z%el(@ub0kz4`BZyzPI?@j&w=pH7ZT#HJ8ReJ!iR1sL$(#iPZJ|`(Mm0KBN9WqtWB(
+z{?qp>4nMkG|NpN2>C?aK0`7fp{<BYB0Z4t@C%@(UUx$0&nd|QJU;16wP;sCCMXi0u
+m``?Yne%Cp?|9$Yk-9P3lXO8kV#rwL0$}mq?KbLh*2~7ZK$_Tmu
+
+delta 990
+zcmV<410npd4(JDv7=Hu<0000<uX0%c001yhOjJdCYMlSod;i5!=A24Oy@UU1Qq@v9
+zq)IUuK{-l`TL1t5z5jEZ)k<@$F;ZeF5D*XmyvphT0004WQchC<K<3zH000AKNkl<Z
+zScUDDKW`H;6u?hH6b9=140P|p-t7i5F{OM0u2aXR6NoVxAb(4T-W0*t$N>^-p51|g
+zq4A|K&>`_TEvUVUyED(1HYhpUt<(Vt^-WRy)A{-N&+mEOT^NEW=jf3)fvE!+fAS9D
+zzyS<F^?^BN04V$5m;-@v3~*!xR%d`ci3z~)8h{OerXwpLfB__@(vbrN_Woqu3Tz-i
+z-+f!Ru5$wbK7T)U08c95!~qNd=-TOq3BY~yynB5OtZ@@CW_S)(5r8inT*Kbdxe!oH
+zJs-z`@~TjNe6#?R6EXD&WsGy70aY&U8R-MXnR7^99qSbQSR@OX5SRc~*ylgOP=CM&
+z!50sX%5j%cPqo7Bsh7$;<sw;Hr_L`;W%yE-9Dj4Qynk3#4)O2fkaHZT(scR};XC2>
+z5SX%E4kcbRx4CrOj0er;^Tc&?RuC|5#Z~Myo13$(Z~^v1djnv%+1zykE4!^NZa?<8
+z%rL|{bfT_pC4MX9NfZUaQ%fy<S@2O5?FB*5H3O*<2vo%MVP*odBDt6m&we%PnMj!x
+zEQ>U;w|{pL?bm=}l)YtL4MdH`e$+DneiyQf>Jw2NAPTFfAnR5H#uAWD^z$P@wy%iA
+zB*{lSjU&8cRJGfxgX2rfBm)}b6gfbQXHqFuD?`pePDy-7ZBMDM@GjsTW6lTPQ@-m=
+z-o^hFBz2D7%Kq9pPWz*C-1Zj-Q2w=l?I}m+Fn=h}-7~rS{aPmI9Fz)!3h-522cQB5
+zkf5`EGs9DtQ>g6!y~OLs_^_6QUm|d6e<l*clTKi6|3`Gh4GW#j?N4}Ox}Rche*%eN
+z+#_@QTXu~6ytIF5+pr>@**~>yn50bGpXavy($!3b7+JeDl7kG-F$HTwDAO~vzp%G^
+zsed{Pw-h%Pp$cDy;Y;C=mjAUC7Tn=xQtW8CTgN@`ym<|9d;_`vd;4QJf%}``P3#}N
+zwgQ#?+fk!!1+@J;Xl@%(*<S;JWfpm9e{{dOo+3dYn{@|90PX*VYx@U5W7@7yLpa)>
+zs#*Kc3wkwzpt}{V+Ji=;(TQq#tRjH+?^n)R5Cfnut$<Ox8=2YzTqNLO$$@8WWdsQ2
+z*p6d+Ji`6~^XM(NQe*l7Dj>#|w`v8JGhkGDRsV2QuaJ(r{^54<2k*+<*;pvQZU6uP
+M07*qoM6N<$f>1ZoW&i*H
+
+diff --git a/graphics/pokemon/treecko/back.png b/graphics/pokemon/treecko/back.png
+index 89e53390dc8d023027e713a5c257da2bc6fdb977..948a82b987c2c10ec0dc55622968bc75ac2cf6e5 100644
+GIT binary patch
+literal 1630
+zcmeAS@N?(olHy`uVBq!ia0vp^4j|0I3?%1nZ+yeRz|0Wf6XIH(HRu2T|9}4ff3k1Z
+zof);)Csgk3>)GF0wXh&PH8|GXB3VHvK}yDzPuhn~*olc*9;kg3jE2Cl2?1`e$GSkz
+zFqQ=Q1v5B2yO9RW7(AXXjv*Cu-cGx@PFa!1WuiwjH_zYy_12prXRS4^od3}|uVkv#
+z6mhZSf5#0imQI;5^Rdjc?H(JM!w&g(lrXg1=QQkVkVx*DX!$6dWiuB$yMoel8HU8a
+zy%Sb#V`^Hlck8*R--Rs!68A5qZ&WDy$;HGF8Shh}-m_kAQbipDOJTzWr--<mJ%SOF
+zrzxHIB*@|LU{VE#VTW|RsPOu#JO%-aV_N-p8#m7n=Z`t9$Dk?ir6t_3WRBy%@5`RQ
+zQV3u!X?iiWAz6C|<D!3zQ`^EEj1>}NXP#$P2=zGCv+W;Wfogk&*#xFare>!+hM!+o
+zsC%of6;?R0-tLq3xyq6YPmChZy=BN_IHdcnagKB&d#&S+U7O7u#MUM}+0C@+n&}Ed
+zPXAk{FSYYBC<U!tWm+=NqRe4t-YuC8Y_Z~E4P5h?vY1@19^m4*@buNCr^Nxb591kh
+zSYO=xYJ9=+)x}Q?MYH!+Uz)z@O6p&a35~G~GZ}48iZ_Jus6^=pvU$#0n7rG9VOOKr
+z)?fQx$&2$DDKaZO*Ad<EzB<X~>38FUm$?$$1b(s|5Oh#H%6VYYLADF$&NVo3q@GA;
+z2tDAevDk5PyOFr1UPJWr7j+!v>}x!y=&j@1VR1o;&u+=)TA^KX7sS>uT+q<x@jdwU
+z&{wIVyDx&dUP$sZc=|iD?Xf(N_h8y$*S_V6(wYnAmn~+#ux|fTwOM;!2Ylm6WAI~Z
+z`_yZ_Qm*W9+ymu=yoCRk`2R2_6tL(7S4@oA_H~QT%yto;Uo!6`O%Ajco(Voz$zbqJ
+zZOw0oqWMWB31tV0rS>wY?Y(I<!*8>2!ka}$wCdM2-8=Ss_C1|nsp2o=d7^EXZfuci
+zuDK-MAk%%Vwd;Y&)&<9Q{3@CHVy2dUcYmqCJ{yHIa^F+x_I00X%+t@7Z4~%nmhSYz
+zTb|+9p;d*Kq=WCi)=t{RcROs8e4@qoMdq7Szv$iKINEUKqUH0C%gobiI@VNeO<1b>
+zzA9PnfaAM|Yd-&*eQ!oS-yXYL`(OJy&k1h$z4}f_)1E7Q4e?*x1R|d8obf9#@88xR
+Y%<B&1m>IJk-4Dv~p00i_>zopr0C9Jd{{R30
+
+delta 623
+zcmV-#0+9XQ4EzL;7=Hu<00013M{Ml?001yhOjJdCYMlSod;i5!=A24Oy@UU1Qq@v9
+zq)IUuK{-l`TL1t5z5jEZ)k<@$F;ZeF5D*XmyvphT0004WQchC<K<3zH0005{Nkl<Z
+zNQvc>v2NQi5I{M0so5WB0=sLc?rjzg=?A1;JGo;!W$w^{27mkk;?xgu(jkF^06ED;
+zmo5}-bm%108a#MV#om#&3_GF>WK0jX0rNfG9gh@a|7X})3+x!i;j+cZM@0ul-@}4}
+zNeOqOa0&%U2{8H*Yyluq0FZ_Rjtn^@Eg75up(dU>Au%e{L=J!-{le&0;b-@_MZit`
+z?jD7DsD)<-gn#3suz+#ZJ$W9e;f3qo$;-e#y^!?YsKBtj0Izx~FzmH({Tg5&8P`<@
+zHlg-7ze^2sr%9n9b)&4fsRc;YtQOA9pP75A+}^Dc=2I+@5g(tu`{WDe+jFmS64>7i
+zCwbHFdqL-uy2J&57ckEI{lYCO&_&$?0NLCNwqD%40e?KnAuZM^&Rqd!>FDZ-TD<Mr
+z7L23u3r(}I)bD(Ib4vQ3S}HPSi%PluPHa&NymE6kcAjbL$B`_y*eke5O=iktyMG?k
+z)`mA>N@C}lcmO*^Q~E^+Z+0_2D13gn!1F_b8`1bfi*P$c;eA-Rm2%iB45W<P1criy
+z@y7raLTDhD!<*(^Sfa6zgJISra1ljOEU<*grn82}zakg-BjxIzAQ)Rk#PR!9$|}>l
+z0*}5tAw(P##CYp=g=KWQJQZ@y<u|<hyTTxf<uY2Wd4up6;vf3bvJ+XW|3&}+002ov
+JPDHLkV1j0BC5!+7
+
+diff --git a/graphics/pokemon/treecko/front.png b/graphics/pokemon/treecko/front.png
+index 7cacddaae8641947a4288efd93ed51a2b0fc3f5f..fabbb29948ec5ce03330c589d0f2035063f5df27 100644
+GIT binary patch
+literal 1775
+zcmeAS@N?(olHy`uVBq!ia0vp^4j|0I3?%1nZ+yeRz|0Wf6XIH(HRu2T|9}4ff3k1Z
+zof);)Csgk3>)GF0wXh&PH8|GXB3VHvK}yDzPuhn~*olc*9;kg3jE2Cl2?1`e$GSkz
+zFqQ=Q1v5B2yO9RW7;`;c978JRyq)%P5{o8B%i3=YB5S|b-|lVM^lskF8~b;=e7XB`
+zW<xl~|Kr(P(!bn`{{8*avxa}_E}vIywPSe8uO_vmV$!W!jW2{hNH41FDCpcch3Smw
+zh2QIcaeaI)EI9Lq1Y5xg|CY9c-I~daZGtN6?%I5L-*Qb$-NV&IOD=T927{T*26ZZ1
+zuBjZK;gk80vru&1g@yfo7s~hUsC~xyf$Q3>mWs3o4dzbSv5%T=ecobF9OfCb{o&i$
+z%i_6y{9I6;y19TyW6CSl*5$2j@{ia*-92Q-yi1Gw%I1z=Dkdo#cKmyD;Pm~_h=+UX
+znN9u#m@!{I^l(AB=bAY}*Lf?{O_*H{%G~pv!{DqL)MuH#^3^Zy1(Cazo}EcN#4&px
+z|LiEMmZMk9oi@w4s6Cux)|4QqkgLoS+PZ~n`#;tI&2+(Ky$tN9W|m4M^ek-i%$&93
+zW%TqZkrinNgIYDy%NTri^h>O)V-^UuD{V4PH{xErdZt8I<j%+)%vqXGFNmipF)_^D
+z{IHy5|MCEvpL2@+R*Ec|)KS6Y$1<ra=2)$miuAoFCpk2Yg^OLq{TF6D-N9_-E?x4<
+z(Zk@dj`&ZB)m)3a%o&!>>Ex@``Z3`p?*g5QV&8>E&wbkMM3tK6y$;>CE?G2iFLTxU
+zfEdOUhP}dJrysIq<Zduen0DZ4#xKqGs~kS(^|oBgIl+12hXUV)(;t$zikxeBr_Q#_
+zFjp)fP)U#NhI@OR?5Y#5Z6@x@{}tgI&9}l{@aDxw4Y@h|C;zZ~S!d0#K4FT;Nru<D
+z5v$hmA82TGo)@Gi!d<-gbfRONOi$I-<^vJc{tcV1EN{MN_I9O6Pu#0+)=JNX<ui46
+zn0!9VBqceoWue8C%K5#W`<S0FO5DC?eyzDdmrMH>=L7Bp83vs?Tk8W|HBlG5d6_t#
+z>o)5({7G`uXLH)|Vm-t54;d{5Kl~yr=kK0itY>R}<ZsD4_Jr8f{3Xm6I@lkwaeV#}
+z8Ga|YtU+JvP-C&{ov(^FX6}CUpz~wFgw5}D_8H4`EVo->@UHFjq@*urO_#TD2~Bkh
+zdeKzD*z)vq<h0bE4))Vk?@1n5&)fE68NcGOqj@`0erIlD5_yr%B{#jaf_MKDH<|Nc
+zRz2^cH_u_Hna%jzL-W|t{_+<m#DyR3vpyg5%TwOzknh$18R=iyPNX03|0R(0r7H4S
+z^$g};-F7VncQ(&q3==$9toby&lB02N%Vr_7-e+Im>;Dp9`h3zpN@3BT^2#6UkJ|6r
+Wp42X4QYHW@f;?UQT-G@yGywpuROEF4
+
+delta 622
+zcmV-!0+Idi4f_O;7=Hu<00013M{Ml?001yhOjJdCYMlSod;i5!=A24Oy@UU1Qq@v9
+zq)IUuK{-l`TL1t5z5jEZ)k<@$F;ZeF5D*XmyvphT0004WQchC<K<3zH0005`Nkl<Z
+zNQv##F^|(Q6aZjLNC(Tszk%CtVegiKPE3JcK$tpSJHgyr$bZt|Je`ie(Fi2gKAVB@
+z>a;A}&^XSW7*Z*Tc}aCc(%7(rr>g!GzxVu}3HiSUmS>#1TarTV0J|^b7QQ*a8q5-e
+z;{<?u363)m>|%he6`US`J%|)w{Rbdcz_X1NC=dY2gLcHgL43MDw}KG@e)Hqpn&$`r
+zzCL$=7cIDVfPWPLKYJJr0lY^-o-7-1CWpXIU>}?!fbS#OVAAUg1yxQc?gN)?p=iAA
+zfI3w<@wgCDss@<4duQGfIG$WW^5L!tfyOH7MB+gTSYaxEhGFvo3QBex$CP+W88Opv
+zl9NoAnN&$H&nCVs)8TtvOZ+WOKUq_+@$b7(O5EpqsDJyB$cu2Y24QT&Vbt4TBDG^O
+zo(932#5Fl52nMg>aa{z#>%&#JfW2w|0?dM7<^(6R={sp}drUJ7u@09kvSmW2p-dR_
+z{g;+nQeDXnV+-H+qhXL4g`gGrvtkGoRkA;bSHH%`k!W31qF{|!EcWc`2vnQmqlg;7
+z#^Wn?J!b%D1jWAn1Um+v!73UkqE_JQfh=vF9}Rl`D7ry<pRpS^IAh$*=jIakdue(r
+z9^(-uK#V<Uj5#VpDM065e9LW5DK$6?IAg;3;1fe#J^2r>-;FbA&pbJ?B>(^b07*qo
+IM6N<$f<rnP#sB~S
+
+diff --git a/graphics/pokemon/treecko/icon.png b/graphics/pokemon/treecko/icon.png
+index f51358adfe3dca7f1bfcc77d2e1a57e339f57ca3..dce89bfd9a78978a56b2656205b1d7199074a388 100644
+GIT binary patch
+literal 1121
+zcmeAS@N?(olHy`uVBq!ia0vp^3P9|@!3-pQ0$S%VFfcO&_=LD7&1o(!F5bI$@Bjb*
+ztLJ#lIqNm$o7cPIIp3yy+q)#{+cV8?-_~5cn)S>}Gbt&`(a{m8eH4s_z_1B{&Ds<9
+z13kl7666=m;PC858j#KJ>EaktG3V`+gIz}qc$~BS4|cG;{{O$MKx+9+zg-(PwA+Sk
+z597aCIydKb{*iU_?>ckecMW}L&cYfh%C$yt(Gtad3K~ltE)~=WhM3ASeAhm}z%%K+
+z=9`jVi<pe1C2wr>XVEM$G?sN;H2K>EVI$51Di>6;zTB$az9K=5;h4I?1s;Q32A<&6
+z>I}?%9A_K^BAE`yGr!?%I3YE`ZA(M-gMhgVzZfcZ=pI?`U^el9Od*rX-fw2pI2T@2
+z_pe=}eL>C4y+&sXPlC?fJs%e>t<RW!ZIAxKPgQg47<gx1-!<jdXU30iC!VG(_`gPh
+z;pq2^n*t9tw#vT}&EtDNzvDWiF330Ye>a~0yTSJRVY8R@_xbZRwd~8k=PwclMY^Y}
+KpUXO@geCw0imc`U
+
+delta 283
+zcmV+$0p$MS2-*UW7!3pi0001qplF={001zNB{Y9&Iel9I0004WQchC<K<3zH0002k
+zNkl<ZIE~$sJ#ND=3`RX<wl4K)=@2f`lEJ=Q_Z%gQS0NhQF@gtrDQYkd0z~?9fC4Qy
+zKJX9V>$*P{<`&9bTt@;3p20dsP>%|%1uj5-2*mjD-2#ije=co-Dum9G1feaqO%U3%
+zC4qk*bDfgXWPTk8sI}+c5@z7|%KN#X0CmP!$a5~GcJ!q*^-nYm47!rL{~B&F2K)Qz
+zF9#0>yFr0|>7YVGR=_R<VmO}};KVcJO$WD4$`(HS$TjaJC6S?jA-97otorc;+W4-w
+hT`7I@!+z6`JE=p0a@8i@r~m)}07*qoM6LruV1lT^clH1P
+
+diff --git a/graphics/pokemon/treecko/normal.pal b/graphics/pokemon/treecko/normal.pal
+index 987a3a5b9..87582dd44 100644
+--- a/graphics/pokemon/treecko/normal.pal
++++ b/graphics/pokemon/treecko/normal.pal
+@@ -2,18 +2,18 @@ JASC-PAL
+ 0100
+ 16
+ 123 106 156
+-255 213 123
+-255 197 82
+-230 156 74
+-74 189 131
+-255 106 82
+-213 82 57
+-164 74 49
+-24 65 57
+-74 139 90
+ 255 255 255
+-189 255 115
+-156 213 74
+-115 172 49
+-82 98 41
+-16 16 16
++252 255 255
++228 190 154
++220 152 125
++215 144 121
++189 142 140
++191 133 122
++161 112 103
++101 83 93
++55 56 99
++32 44 96
++26 28 69
++14 27 76
++6 19 66
++2 3 31
+diff --git a/graphics/pokemon/treecko/shiny.pal b/graphics/pokemon/treecko/shiny.pal
+index da5dda0e4..87582dd44 100644
+--- a/graphics/pokemon/treecko/shiny.pal
++++ b/graphics/pokemon/treecko/shiny.pal
+@@ -2,18 +2,18 @@ JASC-PAL
+ 0100
+ 16
+ 123 106 156
+-255 213 123
+-255 197 82
+-230 156 74
+-255 106 82
+-255 238 197
+-238 189 156
+-205 156 123
+-156 65 41
+-213 82 57
+ 255 255 255
+-172 230 238
+-148 205 213
+-74 164 148
+-82 139 131
+-16 16 16
++252 255 255
++228 190 154
++220 152 125
++215 144 121
++189 142 140
++191 133 122
++161 112 103
++101 83 93
++55 56 99
++32 44 96
++26 28 69
++14 27 76
++6 19 66
++2 3 31
+diff --git a/src/data/pokemon/pokedex_entries.h b/src/data/pokemon/pokedex_entries.h
+index 8a15a1856..0f75bb604 100644
+--- a/src/data/pokemon/pokedex_entries.h
++++ b/src/data/pokemon/pokedex_entries.h
+@@ -3026,7 +3026,7 @@ const struct PokedexEntry gPokedexEntries[] =
+ 
+     [NATIONAL_DEX_TREECKO] =
+     {
+-        .categoryName = _("WOOD GECKO"),
++        .categoryName = _("PRETTY"),
+         .height = 5,
+         .weight = 50,
+         .description = gTreeckoPokedexText,
+@@ -3062,7 +3062,7 @@ const struct PokedexEntry gPokedexEntries[] =
+ 
+     [NATIONAL_DEX_TORCHIC] =
+     {
+-        .categoryName = _("CHICK"),
++        .categoryName = _("OPENAI"),
+         .height = 4,
+         .weight = 25,
+         .description = gTorchicPokedexText,
+@@ -3098,7 +3098,7 @@ const struct PokedexEntry gPokedexEntries[] =
+ 
+     [NATIONAL_DEX_MUDKIP] =
+     {
+-        .categoryName = _("MUD FISH"),
++        .categoryName = _("GOOD DOG"),
+         .height = 4,
+         .weight = 76,
+         .description = gMudkipPokedexText,
+diff --git a/src/data/pokemon_graphics/back_pic_coordinates.h b/src/data/pokemon_graphics/back_pic_coordinates.h
+index 43986dd9b..53878ec43 100644
+--- a/src/data/pokemon_graphics/back_pic_coordinates.h
++++ b/src/data/pokemon_graphics/back_pic_coordinates.h
+@@ -281,13 +281,13 @@ const struct MonCoords gMonBackPicCoords[] =
+     [SPECIES_OLD_UNOWN_X] = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  2 },
+     [SPECIES_OLD_UNOWN_Y] = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  2 },
+     [SPECIES_OLD_UNOWN_Z] = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  2 },
+-    [SPECIES_TREECKO]     = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  6 },
++    [SPECIES_TREECKO]     = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+     [SPECIES_GROVYLE]     = { .size = MON_COORDS_SIZE(64, 48), .y_offset =  8 },
+     [SPECIES_SCEPTILE]    = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  1 },
+-    [SPECIES_TORCHIC]     = { .size = MON_COORDS_SIZE(48, 56), .y_offset =  5 },
++    [SPECIES_TORCHIC]     = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+     [SPECIES_COMBUSKEN]   = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+     [SPECIES_BLAZIKEN]    = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+-    [SPECIES_MUDKIP]      = { .size = MON_COORDS_SIZE(56, 56), .y_offset =  5 },
++    [SPECIES_MUDKIP]      = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+     [SPECIES_MARSHTOMP]   = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  4 },
+     [SPECIES_SWAMPERT]    = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  5 },
+     [SPECIES_POOCHYENA]   = { .size = MON_COORDS_SIZE(56, 48), .y_offset =  9 },
+@@ -445,4 +445,3 @@ const struct MonCoords gMonBackPicCoords[] =
+     [SPECIES_UNOWN_EMARK] = { .size = MON_COORDS_SIZE(24, 56), .y_offset =  6 },
+     [SPECIES_UNOWN_QMARK] = { .size = MON_COORDS_SIZE(32, 56), .y_offset =  6 },
+ };
+-
+diff --git a/src/data/pokemon_graphics/front_pic_coordinates.h b/src/data/pokemon_graphics/front_pic_coordinates.h
+index 34d5c6744..010a00fec 100644
+--- a/src/data/pokemon_graphics/front_pic_coordinates.h
++++ b/src/data/pokemon_graphics/front_pic_coordinates.h
+@@ -281,13 +281,13 @@ const struct MonCoords gMonFrontPicCoords[] =
+     [SPECIES_OLD_UNOWN_X] = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  4 },
+     [SPECIES_OLD_UNOWN_Y] = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  4 },
+     [SPECIES_OLD_UNOWN_Z] = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  4 },
+-    [SPECIES_TREECKO]     = { .size = MON_COORDS_SIZE(48, 48), .y_offset =  8 },
++    [SPECIES_TREECKO]     = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+     [SPECIES_GROVYLE]     = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  4 },
+     [SPECIES_SCEPTILE]    = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+-    [SPECIES_TORCHIC]     = { .size = MON_COORDS_SIZE(40, 48), .y_offset =  8 },
++    [SPECIES_TORCHIC]     = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+     [SPECIES_COMBUSKEN]   = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  1 },
+     [SPECIES_BLAZIKEN]    = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+-    [SPECIES_MUDKIP]      = { .size = MON_COORDS_SIZE(40, 48), .y_offset = 12 },
++    [SPECIES_MUDKIP]      = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+     [SPECIES_MARSHTOMP]   = { .size = MON_COORDS_SIZE(48, 56), .y_offset =  6 },
+     [SPECIES_SWAMPERT]    = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
+     [SPECIES_POOCHYENA]   = { .size = MON_COORDS_SIZE(40, 40), .y_offset = 12 },
+diff --git a/src/data/text/species_names.h b/src/data/text/species_names.h
+index 25f2c9aa2..e3578790e 100644
+--- a/src/data/text/species_names.h
++++ b/src/data/text/species_names.h
+@@ -276,13 +276,13 @@ const u8 gSpeciesNames[][POKEMON_NAME_LENGTH + 1] = {
+     [SPECIES_OLD_UNOWN_X] = _("?"),
+     [SPECIES_OLD_UNOWN_Y] = _("?"),
+     [SPECIES_OLD_UNOWN_Z] = _("?"),
+-    [SPECIES_TREECKO] = _("TREECKO"),
++    [SPECIES_TREECKO] = _("LILY"),
+     [SPECIES_GROVYLE] = _("GROVYLE"),
+     [SPECIES_SCEPTILE] = _("SCEPTILE"),
+-    [SPECIES_TORCHIC] = _("TORCHIC"),
++    [SPECIES_TORCHIC] = _("ALTMAN"),
+     [SPECIES_COMBUSKEN] = _("COMBUSKEN"),
+     [SPECIES_BLAZIKEN] = _("BLAZIKEN"),
+-    [SPECIES_MUDKIP] = _("MUDKIP"),
++    [SPECIES_MUDKIP] = _("ENZO"),
+     [SPECIES_MARSHTOMP] = _("MARSHTOMP"),
+     [SPECIES_SWAMPERT] = _("SWAMPERT"),
+     [SPECIES_POOCHYENA] = _("POOCHYENA"),

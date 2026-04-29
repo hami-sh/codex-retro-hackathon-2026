@@ -1,0 +1,13 @@
+codex-pkmn demo edits
+
+This repo intentionally contains only the hackathon edit delta, not the upstream OOT or pokeemerald source trees.
+
+Contents:
+- patches/pokeemerald.patch: binary-capable git patch for tracked pokeemerald changes.
+- pokeemerald/graphics/pokemon/custom_starters/: new custom starter source/preview assets.
+
+Apply from a clean pokeemerald checkout with:
+  git apply --binary /path/to/patches/pokeemerald.patch
+  cp -R /path/to/pokeemerald/graphics/pokemon/custom_starters graphics/pokemon/
+
+OOT had no git-visible changes at export time.
