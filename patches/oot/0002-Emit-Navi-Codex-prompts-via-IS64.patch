@@ -1,0 +1,131 @@
+From 2bad2604965cbf0cb816d2d9e5dce363b5cfae1b Mon Sep 17 00:00:00 2001
+From: hamishgrahambultitude <hamishgrahambultitude@gmail.com>
+Date: Wed, 29 Apr 2026 13:47:08 +1000
+Subject: [PATCH 2/3] Emit Navi Codex prompts via IS64
+
+---
+ src/overlays/actors/ovl_En_Elf/z_en_elf.c | 87 +++++++++++++++++++++++
+ 1 file changed, 87 insertions(+)
+
+diff --git a/src/overlays/actors/ovl_En_Elf/z_en_elf.c b/src/overlays/actors/ovl_En_Elf/z_en_elf.c
+index 9c57f730f..86066cce6 100644
+--- a/src/overlays/actors/ovl_En_Elf/z_en_elf.c
++++ b/src/overlays/actors/ovl_En_Elf/z_en_elf.c
+@@ -10,6 +10,7 @@
+ #include "libc64/qrand.h"
+ #include "libu64/debug.h"
+ #include "attributes.h"
++#include "carthandle.h"
+ #include "gfx.h"
+ #include "gfx_setupdl.h"
+ #include "ichain.h"
+@@ -42,6 +43,10 @@
+ #define CODEX_KEYBOARD_COLS 13
+ #define CODEX_KEYBOARD_ROWS 2
+ #define CODEX_KEYBOARD_KEYS (CODEX_KEYBOARD_COLS * CODEX_KEYBOARD_ROWS)
++#define CODEX_IS64_BASE 0x13FF0000
++#define CODEX_IS64_PUT 0x14
++#define CODEX_IS64_DATA 0x20
++#define CODEX_IS64_LINE_MAX 128
+ 
+ static const char sCodexKeyboard[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+ static char sCodexComposeText[CODEX_COMPOSE_MAX];
+@@ -1330,6 +1335,87 @@ void EnElf_StartCodexDialog(EnElf* this, PlayState* play) {
+     Message_StartCodexTextbox(play, text, &this->actor);
+ }
+ 
++static s32 EnElf_CodexAppendChar(char* dst, s32 pos, s32 dstSize, char ch) {
++    if (pos < dstSize) {
++        dst[pos++] = ch;
++    }
++
++    return pos;
++}
++
++static s32 EnElf_CodexAppendString(char* dst, s32 pos, s32 dstSize, const char* src) {
++    while (*src != '\0') {
++        pos = EnElf_CodexAppendChar(dst, pos, dstSize, *src++);
++    }
++
++    return pos;
++}
++
++static s32 EnElf_CodexAppendU32(char* dst, s32 pos, s32 dstSize, u32 value) {
++    char digits[10];
++    s32 len = 0;
++
++    do {
++        digits[len++] = '0' + (value % 10);
++        value /= 10;
++    } while (value != 0);
++
++    while (len > 0) {
++        pos = EnElf_CodexAppendChar(dst, pos, dstSize, digits[--len]);
++    }
++
++    return pos;
++}
++
++static void EnElf_WriteIs64Line(const char* line, s32 len) {
++    s32 i;
++    s32 wordOffset = 0;
++    u32 word = 0;
++
++    if ((gCartHandle == NULL) || (len <= 0)) {
++        return;
++    }
++
++    for (i = 0; i < len; i++) {
++        word |= (u32)(u8)line[i] << ((3 - (i & 3)) * 8);
++
++        if ((i & 3) == 3) {
++            osEPiWriteIo(gCartHandle, CODEX_IS64_BASE + CODEX_IS64_DATA + wordOffset, word);
++            word = 0;
++            wordOffset += 4;
++        }
++    }
++
++    if ((i & 3) != 0) {
++        osEPiWriteIo(gCartHandle, CODEX_IS64_BASE + CODEX_IS64_DATA + wordOffset, word);
++    }
++
++    osEPiWriteIo(gCartHandle, CODEX_IS64_BASE + CODEX_IS64_PUT, len);
++}
++
++static void EnElf_EmitCodexPrompt(void) {
++    char line[CODEX_IS64_LINE_MAX];
++    s32 pos = 0;
++    s32 i;
++
++    pos = EnElf_CodexAppendString(line, pos, CODEX_IS64_LINE_MAX - 1, "CODEX_PROMPT|");
++    pos = EnElf_CodexAppendU32(line, pos, CODEX_IS64_LINE_MAX - 1, gCodexMailbox.requestSeq);
++    pos = EnElf_CodexAppendChar(line, pos, CODEX_IS64_LINE_MAX - 1, '|');
++
++    for (i = 0; (i < (s32)gCodexMailbox.promptLen) && (pos < CODEX_IS64_LINE_MAX - 2); i++) {
++        char ch = gCodexMailbox.prompt[i];
++
++        if ((ch < ' ') || (ch > '~') || (ch == '|')) {
++            ch = ' ';
++        }
++
++        pos = EnElf_CodexAppendChar(line, pos, CODEX_IS64_LINE_MAX - 1, ch);
++    }
++
++    pos = EnElf_CodexAppendChar(line, pos, CODEX_IS64_LINE_MAX, '\n');
++    EnElf_WriteIs64Line(line, pos);
++}
++
+ void EnElf_ClearCodexTextbox(PlayState* play) {
+     MessageContext* msgCtx = &play->msgCtx;
+ 
+@@ -1405,6 +1491,7 @@ void EnElf_UpdateCodexComposer(Actor* thisx, PlayState* play) {
+         gCodexMailbox.reply[0] = '\0';
+         gCodexMailbox.requestSeq++;
+         gCodexMailbox.status = CODEX_MAILBOX_STATUS_PENDING;
++        EnElf_EmitCodexPrompt();
+         sCodexComposerActive = false;
+         Message_StartCodexTextbox(play, "Waiting for Codex...", &this->actor);
+         this->actor.update = EnElf_UpdateCodexWaiting;
+-- 
+2.50.1 (Apple Git-155)
+

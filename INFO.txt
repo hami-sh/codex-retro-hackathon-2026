@@ -4,10 +4,12 @@ This repo intentionally contains only the hackathon edit delta, not the upstream
 
 Contents:
 - patches/pokeemerald.patch: binary-capable git patch for tracked pokeemerald changes.
+- patches/oot/*.patch: local OOT commits exported as binary-capable patch files against zeldaret/oot origin/main.
 - pokeemerald/graphics/pokemon/custom_starters/: new custom starter source/preview assets.
 
-Apply from a clean pokeemerald checkout with:
+Apply pokeemerald from a clean pokeemerald checkout with:
   git apply --binary /path/to/patches/pokeemerald.patch
   cp -R /path/to/pokeemerald/graphics/pokemon/custom_starters graphics/pokemon/
 
-OOT had no git-visible changes at export time.
+Apply OOT from a clean OOT checkout based on zeldaret/oot origin/main with:
+  git am --3way /path/to/patches/oot/*.patch

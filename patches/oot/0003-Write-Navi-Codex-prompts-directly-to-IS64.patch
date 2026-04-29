@@ -1,0 +1,63 @@
+From bbb49805f5402e8a1af1a1d5e4d8fde94f04a276 Mon Sep 17 00:00:00 2001
+From: hamishgrahambultitude <hamishgrahambultitude@gmail.com>
+Date: Wed, 29 Apr 2026 14:00:12 +1000
+Subject: [PATCH 3/3] Write Navi Codex prompts directly to IS64
+
+---
+ src/overlays/actors/ovl_En_Elf/z_en_elf.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/src/overlays/actors/ovl_En_Elf/z_en_elf.c b/src/overlays/actors/ovl_En_Elf/z_en_elf.c
+index 86066cce6..5c412f3f8 100644
+--- a/src/overlays/actors/ovl_En_Elf/z_en_elf.c
++++ b/src/overlays/actors/ovl_En_Elf/z_en_elf.c
+@@ -10,7 +10,6 @@
+ #include "libc64/qrand.h"
+ #include "libu64/debug.h"
+ #include "attributes.h"
+-#include "carthandle.h"
+ #include "gfx.h"
+ #include "gfx_setupdl.h"
+ #include "ichain.h"
+@@ -43,7 +42,7 @@
+ #define CODEX_KEYBOARD_COLS 13
+ #define CODEX_KEYBOARD_ROWS 2
+ #define CODEX_KEYBOARD_KEYS (CODEX_KEYBOARD_COLS * CODEX_KEYBOARD_ROWS)
+-#define CODEX_IS64_BASE 0x13FF0000
++#define CODEX_IS64_BASE 0xB3FF0000
+ #define CODEX_IS64_PUT 0x14
+ #define CODEX_IS64_DATA 0x20
+ #define CODEX_IS64_LINE_MAX 128
+@@ -1372,7 +1371,7 @@ static void EnElf_WriteIs64Line(const char* line, s32 len) {
+     s32 wordOffset = 0;
+     u32 word = 0;
+ 
+-    if ((gCartHandle == NULL) || (len <= 0)) {
++    if (len <= 0) {
+         return;
+     }
+ 
+@@ -1380,17 +1379,17 @@ static void EnElf_WriteIs64Line(const char* line, s32 len) {
+         word |= (u32)(u8)line[i] << ((3 - (i & 3)) * 8);
+ 
+         if ((i & 3) == 3) {
+-            osEPiWriteIo(gCartHandle, CODEX_IS64_BASE + CODEX_IS64_DATA + wordOffset, word);
++            *(volatile u32*)(CODEX_IS64_BASE + CODEX_IS64_DATA + wordOffset) = word;
+             word = 0;
+             wordOffset += 4;
+         }
+     }
+ 
+     if ((i & 3) != 0) {
+-        osEPiWriteIo(gCartHandle, CODEX_IS64_BASE + CODEX_IS64_DATA + wordOffset, word);
++        *(volatile u32*)(CODEX_IS64_BASE + CODEX_IS64_DATA + wordOffset) = word;
+     }
+ 
+-    osEPiWriteIo(gCartHandle, CODEX_IS64_BASE + CODEX_IS64_PUT, len);
++    *(volatile u32*)(CODEX_IS64_BASE + CODEX_IS64_PUT) = len;
+ }
+ 
+ static void EnElf_EmitCodexPrompt(void) {
+-- 
+2.50.1 (Apple Git-155)
+

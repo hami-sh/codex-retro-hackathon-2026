@@ -1,0 +1,509 @@
+From 94fb5b044a214537073543c55e528965ebd86d30 Mon Sep 17 00:00:00 2001
+From: hamishgrahambultitude <hamishgrahambultitude@gmail.com>
+Date: Wed, 29 Apr 2026 13:45:35 +1000
+Subject: [PATCH 1/3] Checkpoint Navi Codex UI flow
+
+---
+ include/message.h                             |  27 ++
+ src/code/z_message.c                          |  59 ++++
+ src/overlays/actors/ovl_En_Elf/z_en_elf.c     | 276 +++++++++++++++++-
+ .../actors/ovl_player_actor/z_player.c        |   7 +
+ 4 files changed, 368 insertions(+), 1 deletion(-)
+
+diff --git a/include/message.h b/include/message.h
+index 3948f2dd0..6f2779604 100644
+--- a/include/message.h
++++ b/include/message.h
+@@ -9,6 +9,32 @@ struct OcarinaStaff;
+ struct Actor;
+ struct PlayState;
+ 
++#define CODEX_MAILBOX_MAGIC 0x4344584D
++#define CODEX_MAILBOX_VERSION 1
++#define CODEX_PROMPT_MAX 512
++#define CODEX_REPLY_MAX 960
++
++typedef enum CodexMailboxStatus {
++    /* 0 */ CODEX_MAILBOX_STATUS_IDLE,
++    /* 1 */ CODEX_MAILBOX_STATUS_PENDING,
++    /* 2 */ CODEX_MAILBOX_STATUS_COMPLETE,
++    /* 3 */ CODEX_MAILBOX_STATUS_ERROR
++} CodexMailboxStatus;
++
++typedef struct CodexMailbox {
++    /* 0x000 */ u32 magic;
++    /* 0x004 */ u32 version;
++    /* 0x008 */ u32 requestSeq;
++    /* 0x00C */ u32 responseSeq;
++    /* 0x010 */ u32 status;
++    /* 0x014 */ u32 promptLen;
++    /* 0x018 */ u32 replyLen;
++    /* 0x01C */ char prompt[CODEX_PROMPT_MAX];
++    /* 0x21C */ char reply[CODEX_REPLY_MAX];
++} CodexMailbox; // size = 0x5DC
++
++extern CodexMailbox gCodexMailbox;
++
+ typedef enum TextBoxIcon {
+     /* 0 */ TEXTBOX_ICON_TRIANGLE,
+     /* 1 */ TEXTBOX_ICON_SQUARE,
+@@ -194,6 +220,7 @@ void Message_UpdateOcarinaMemoryGame(struct PlayState* play);
+ u8 Message_ShouldAdvance(struct PlayState* play);
+ void Message_CloseTextbox(struct PlayState*);
+ void Message_StartTextbox(struct PlayState* play, u16 textId, struct Actor* actor);
++void Message_StartCodexTextbox(struct PlayState* play, const char* text, struct Actor* actor);
+ void Message_ContinueTextbox(struct PlayState* play, u16 textId);
+ void Message_StartOcarina(struct PlayState* play, u16 ocarinaActionId);
+ void Message_StartOcarinaSunsSongDisabled(struct PlayState* play, u16 ocarinaActionId);
+diff --git a/src/code/z_message.c b/src/code/z_message.c
+index 48ec9fd08..e2c9f8d09 100644
+--- a/src/code/z_message.c
++++ b/src/code/z_message.c
+@@ -151,6 +151,51 @@ s16 sMessageHasSetSfx = false;
+ 
+ u16 sOcarinaSongBitFlags = 0; // ocarina bit flags
+ 
++CodexMailbox gCodexMailbox = {
++    CODEX_MAILBOX_MAGIC,
++    CODEX_MAILBOX_VERSION,
++    0,
++    0,
++    CODEX_MAILBOX_STATUS_IDLE,
++    0,
++    0,
++    "",
++    "",
++};
++
++static s32 Message_CopyCodexText(u8* dst, const char* text, s32 dstSize) {
++    s32 pos = 0;
++    s32 col = 0;
++    s32 linesOnPage = 0;
++
++    while ((*text != '\0') && (pos < dstSize - 2)) {
++        u8 ch = *text++;
++
++        if ((ch == '\n') || (col >= 34)) {
++            dst[pos++] = MESSAGE_NEWLINE;
++            col = 0;
++            linesOnPage++;
++            if ((linesOnPage >= 3) && (pos < dstSize - 2)) {
++                dst[pos++] = MESSAGE_BOX_BREAK;
++                linesOnPage = 0;
++            }
++            if ((ch == ' ') || (ch == '\n')) {
++                continue;
++            }
++        }
++
++        if ((ch < ' ') || (ch > '~')) {
++            ch = ' ';
++        }
++
++        dst[pos++] = ch;
++        col++;
++    }
++
++    dst[pos++] = MESSAGE_END;
++    return pos;
++}
++
+ #if OOT_NTSC
+ 
+ MessageTableEntry sJpnMessageEntryTable[] = {
+@@ -2758,6 +2803,20 @@ void Message_StartTextbox(PlayState* play, u16 textId, Actor* actor) {
+     play->msgCtx.ocarinaMode = OCARINA_MODE_00;
+ }
+ 
++void Message_StartCodexTextbox(PlayState* play, const char* text, Actor* actor) {
++    MessageContext* msgCtx = &play->msgCtx;
++    Font* font = &msgCtx->font;
++
++    msgCtx->ocarinaAction = 0xFFFF;
++    Message_OpenText(play, 0x5050);
++    font->msgLength = Message_CopyCodexText(font->msgBuf, text, sizeof(font->msgBuf));
++    msgCtx->talkActor = actor;
++    msgCtx->msgMode = MSGMODE_TEXT_START;
++    msgCtx->stateTimer = 0;
++    msgCtx->textDelayTimer = 0;
++    play->msgCtx.ocarinaMode = OCARINA_MODE_00;
++}
++
+ void Message_ContinueTextbox(PlayState* play, u16 textId) {
+     MessageContext* msgCtx = &play->msgCtx;
+     InterfaceContext* interfaceCtx = &play->interfaceCtx;
+diff --git a/src/overlays/actors/ovl_En_Elf/z_en_elf.c b/src/overlays/actors/ovl_En_Elf/z_en_elf.c
+index c882e0e97..9c57f730f 100644
+--- a/src/overlays/actors/ovl_En_Elf/z_en_elf.c
++++ b/src/overlays/actors/ovl_En_Elf/z_en_elf.c
+@@ -13,6 +13,7 @@
+ #include "gfx.h"
+ #include "gfx_setupdl.h"
+ #include "ichain.h"
++#include "libu64/gfxprint.h"
+ #include "rand.h"
+ #include "regs.h"
+ #include "sfx.h"
+@@ -22,10 +23,12 @@
+ #include "audio.h"
+ #include "effect.h"
+ #include "light.h"
++#include "message.h"
+ #include "play_state.h"
+ #include "player.h"
+ #include "quest_hint.h"
+ #include "save.h"
++#include "controller.h"
+ 
+ #include "assets/objects/gameplay_keep/fairy_skel.h"
+ #include "assets/objects/gameplay_keep/fairy_anim.h"
+@@ -35,6 +38,17 @@
+ #define FAIRY_FLAG_TIMED (1 << 8)
+ #define FAIRY_FLAG_BIG (1 << 9)
+ 
++#define CODEX_COMPOSE_MAX 64
++#define CODEX_KEYBOARD_COLS 13
++#define CODEX_KEYBOARD_ROWS 2
++#define CODEX_KEYBOARD_KEYS (CODEX_KEYBOARD_COLS * CODEX_KEYBOARD_ROWS)
++
++static const char sCodexKeyboard[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
++static char sCodexComposeText[CODEX_COMPOSE_MAX];
++static s32 sCodexComposeLen = 0;
++static s32 sCodexKeyboardIndex = 0;
++static s32 sCodexComposerActive = false;
++
+ void EnElf_Init(Actor* thisx, PlayState* play);
+ void EnElf_Destroy(Actor* thisx, PlayState* play);
+ void EnElf_Update(Actor* thisx, PlayState* play);
+@@ -45,6 +59,12 @@ void func_80A05208(Actor* thisx, PlayState* play);
+ void func_80A05188(Actor* thisx, PlayState* play);
+ void func_80A05114(Actor* thisx, PlayState* play);
+ void func_80A05040(Actor* thisx, PlayState* play);
++void EnElf_StartCodexDialog(EnElf* this, PlayState* play);
++void EnElf_ClearCodexTextbox(PlayState* play);
++void EnElf_UpdateCodexComposer(Actor* thisx, PlayState* play);
++void EnElf_UpdateCodexWaiting(Actor* thisx, PlayState* play);
++void EnElf_UpdateCodexResult(Actor* thisx, PlayState* play);
++void EnElf_DrawCodexComposer(PlayState* play);
+ 
+ // Navi
+ void func_80A03CF8(EnElf* this, PlayState* play);
+@@ -1281,6 +1301,231 @@ void func_80A04F94(EnElf* this, PlayState* play) {
+     Environment_AdjustLights(play, SQ(this->unk_2A4), player->actor.projectedPos.z + 780.0f, 0.2f, 0.5f);
+ }
+ 
++void EnElf_StartCodexDialog(EnElf* this, PlayState* play) {
++    const char* text = "Ask Codex from the bridge, then talk to Navi again.";
++
++    if (gCodexMailbox.status == CODEX_MAILBOX_STATUS_PENDING) {
++        sCodexComposerActive = false;
++        text = "Codex is thinking...";
++    } else if (gCodexMailbox.status == CODEX_MAILBOX_STATUS_COMPLETE) {
++        sCodexComposerActive = false;
++        text = gCodexMailbox.reply;
++        gCodexMailbox.status = CODEX_MAILBOX_STATUS_IDLE;
++        gCodexMailbox.promptLen = 0;
++    } else if (gCodexMailbox.status == CODEX_MAILBOX_STATUS_ERROR) {
++        sCodexComposerActive = false;
++        text = gCodexMailbox.reply;
++        gCodexMailbox.status = CODEX_MAILBOX_STATUS_IDLE;
++        gCodexMailbox.promptLen = 0;
++    } else {
++        sCodexComposeLen = 0;
++        sCodexComposeText[0] = '\0';
++        sCodexKeyboardIndex = 0;
++        sCodexComposerActive = true;
++        Message_CloseTextbox(play);
++        this->actor.update = EnElf_UpdateCodexComposer;
++        return;
++    }
++
++    Message_StartCodexTextbox(play, text, &this->actor);
++}
++
++void EnElf_ClearCodexTextbox(PlayState* play) {
++    MessageContext* msgCtx = &play->msgCtx;
++
++    msgCtx->msgLength = 0;
++    msgCtx->msgMode = MSGMODE_NONE;
++    msgCtx->textboxEndType = TEXTBOX_ENDTYPE_DEFAULT;
++    msgCtx->choiceIndex = 0;
++    msgCtx->stateTimer = 0;
++}
++
++void EnElf_UpdateCodexComposer(Actor* thisx, PlayState* play) {
++    EnElf* this = (EnElf*)thisx;
++    Player* player = GET_PLAYER(play);
++    Input* input = &play->state.input[0];
++    s32 i;
++
++    Player_SetCsAction(play, &this->actor, PLAYER_CSACTION_8);
++    EnElf_ClearCodexTextbox(play);
++    func_80A04DE4(this, play);
++
++    if (CHECK_BTN_ALL(input->press.button, BTN_DLEFT)) {
++        if ((sCodexKeyboardIndex % CODEX_KEYBOARD_COLS) == 0) {
++            sCodexKeyboardIndex += CODEX_KEYBOARD_COLS - 1;
++        } else {
++            sCodexKeyboardIndex--;
++        }
++    }
++
++    if (CHECK_BTN_ALL(input->press.button, BTN_DRIGHT)) {
++        if ((sCodexKeyboardIndex % CODEX_KEYBOARD_COLS) == CODEX_KEYBOARD_COLS - 1) {
++            sCodexKeyboardIndex -= CODEX_KEYBOARD_COLS - 1;
++        } else {
++            sCodexKeyboardIndex++;
++        }
++    }
++
++    if (CHECK_BTN_ALL(input->press.button, BTN_DUP)) {
++        sCodexKeyboardIndex -= CODEX_KEYBOARD_COLS;
++        if (sCodexKeyboardIndex < 0) {
++            sCodexKeyboardIndex += CODEX_KEYBOARD_KEYS;
++        }
++    }
++
++    if (CHECK_BTN_ALL(input->press.button, BTN_DDOWN)) {
++        sCodexKeyboardIndex += CODEX_KEYBOARD_COLS;
++        if (sCodexKeyboardIndex >= CODEX_KEYBOARD_KEYS) {
++            sCodexKeyboardIndex -= CODEX_KEYBOARD_KEYS;
++        }
++    }
++
++    if (CHECK_BTN_ALL(input->press.button, BTN_A) && (sCodexComposeLen < CODEX_COMPOSE_MAX - 1)) {
++        sCodexComposeText[sCodexComposeLen++] = sCodexKeyboard[sCodexKeyboardIndex];
++        sCodexComposeText[sCodexComposeLen] = '\0';
++    }
++
++    if (CHECK_BTN_ALL(input->press.button, BTN_B) && (sCodexComposeLen > 0)) {
++        sCodexComposeLen--;
++        sCodexComposeText[sCodexComposeLen] = '\0';
++    }
++
++    if (CHECK_BTN_ALL(input->press.button, BTN_Z) && (sCodexComposeLen < CODEX_COMPOSE_MAX - 1)) {
++        sCodexComposeText[sCodexComposeLen++] = ' ';
++        sCodexComposeText[sCodexComposeLen] = '\0';
++    }
++
++    if (CHECK_BTN_ALL(input->press.button, BTN_START) && (sCodexComposeLen > 0)) {
++        for (i = 0; i < sCodexComposeLen; i++) {
++            gCodexMailbox.prompt[i] = sCodexComposeText[i];
++        }
++        gCodexMailbox.prompt[sCodexComposeLen] = '\0';
++        gCodexMailbox.promptLen = sCodexComposeLen;
++        gCodexMailbox.replyLen = 0;
++        gCodexMailbox.reply[0] = '\0';
++        gCodexMailbox.requestSeq++;
++        gCodexMailbox.status = CODEX_MAILBOX_STATUS_PENDING;
++        sCodexComposerActive = false;
++        Message_StartCodexTextbox(play, "Waiting for Codex...", &this->actor);
++        this->actor.update = EnElf_UpdateCodexWaiting;
++    } else if (CHECK_BTN_ALL(input->press.button, BTN_L)) {
++        sCodexComposerActive = false;
++        Player_SetCsAction(play, &this->actor, PLAYER_CSACTION_NONE);
++        this->actor.update = func_80A053F0;
++        func_80A01C38(this, 0);
++        this->fairyFlags &= ~0x20;
++    }
++
++    player->actor.speed = 0.0f;
++    input->press.button = 0;
++    input->cur.button = 0;
++    input->rel.button = 0;
++    func_80A04F94(this, play);
++}
++
++void EnElf_UpdateCodexWaiting(Actor* thisx, PlayState* play) {
++    EnElf* this = (EnElf*)thisx;
++    Player* player = GET_PLAYER(play);
++    const char* text = NULL;
++
++    Player_SetCsAction(play, &this->actor, PLAYER_CSACTION_8);
++    player->actor.speed = 0.0f;
++
++    func_80A04DE4(this, play);
++
++    if (gCodexMailbox.status == CODEX_MAILBOX_STATUS_COMPLETE) {
++        text = gCodexMailbox.reply;
++    } else if (gCodexMailbox.status == CODEX_MAILBOX_STATUS_ERROR) {
++        text = gCodexMailbox.reply;
++    }
++
++    if (text != NULL) {
++        gCodexMailbox.status = CODEX_MAILBOX_STATUS_IDLE;
++        gCodexMailbox.promptLen = 0;
++        Message_StartCodexTextbox(play, text, &this->actor);
++        this->actor.update = EnElf_UpdateCodexResult;
++    }
++
++    play->state.input[0].press.button = 0;
++    play->state.input[0].cur.button = 0;
++    play->state.input[0].rel.button = 0;
++    func_80A04F94(this, play);
++}
++
++void EnElf_UpdateCodexResult(Actor* thisx, PlayState* play) {
++    EnElf* this = (EnElf*)thisx;
++    Player* player = GET_PLAYER(play);
++
++    Player_SetCsAction(play, &this->actor, PLAYER_CSACTION_8);
++    player->actor.speed = 0.0f;
++    func_80A04DE4(this, play);
++
++    if (Actor_TextboxIsClosing(thisx, play)) {
++        Player_SetCsAction(play, &this->actor, PLAYER_CSACTION_NONE);
++        this->actor.update = func_80A053F0;
++        func_80A01C38(this, 0);
++        this->fairyFlags &= ~0x20;
++    }
++
++    func_80A04F94(this, play);
++}
++
++void EnElf_DrawCodexComposer(PlayState* play) {
++    GfxPrint printer;
++    s32 row;
++    s32 col;
++    s32 index;
++    s32 promptOffset = 0;
++
++    if (!sCodexComposerActive) {
++        return;
++    }
++
++    OPEN_DISPS(play->state.gfxCtx, "../z_en_elf.c", 2797);
++
++    GfxPrint_Init(&printer);
++    GfxPrint_Open(&printer, OVERLAY_DISP);
++
++    GfxPrint_SetColor(&printer, 255, 255, 255, 255);
++    GfxPrint_SetPos(&printer, 4, 4);
++    GfxPrint_Printf(&printer, "CODEX NAVI");
++
++    GfxPrint_SetColor(&printer, 180, 220, 255, 255);
++    GfxPrint_SetPos(&printer, 4, 6);
++    GfxPrint_Printf(&printer, "ASK:");
++
++    if (sCodexComposeLen > 26) {
++        promptOffset = sCodexComposeLen - 26;
++    }
++
++    GfxPrint_SetPos(&printer, 9, 6);
++    GfxPrint_Printf(&printer, "%s_", &sCodexComposeText[promptOffset]);
++
++    for (row = 0; row < CODEX_KEYBOARD_ROWS; row++) {
++        for (col = 0; col < CODEX_KEYBOARD_COLS; col++) {
++            index = (row * CODEX_KEYBOARD_COLS) + col;
++            GfxPrint_SetPos(&printer, 4 + (col * 2), 9 + (row * 2));
++
++            if (index == sCodexKeyboardIndex) {
++                GfxPrint_SetColor(&printer, 255, 220, 40, 255);
++                GfxPrint_Printf(&printer, "[%c]", sCodexKeyboard[index]);
++            } else {
++                GfxPrint_SetColor(&printer, 230, 230, 230, 255);
++                GfxPrint_Printf(&printer, " %c ", sCodexKeyboard[index]);
++            }
++        }
++    }
++
++    GfxPrint_SetColor(&printer, 160, 255, 160, 255);
++    GfxPrint_SetPos(&printer, 4, 14);
++    GfxPrint_Printf(&printer, "A TYPE  B DEL  Z SPACE  START SEND");
++
++    OVERLAY_DISP = GfxPrint_Close(&printer);
++    GfxPrint_Destroy(&printer);
++
++    CLOSE_DISPS(play->state.gfxCtx, "../z_en_elf.c", 2838);
++}
++
+ // ask to talk to saria again
+ void func_80A05040(Actor* thisx, PlayState* play) {
+     EnElf* this = (EnElf*)thisx;
+@@ -1341,6 +1586,15 @@ void func_80A05208(Actor* thisx, PlayState* play) {
+     if ((Message_GetState(&play->msgCtx) == TEXT_STATE_CHOICE) && Message_ShouldAdvance(play)) {
+         switch (play->msgCtx.choiceIndex) {
+             case 0: // yes
++                if ((gCodexMailbox.magic == CODEX_MAILBOX_MAGIC) &&
++                    (gCodexMailbox.version == CODEX_MAILBOX_VERSION)) {
++                    EnElf_StartCodexDialog(this, play);
++                    if (!sCodexComposerActive) {
++                        this->actor.update = func_80A052F4;
++                    }
++                    break;
++                }
++
+                 naviTextId = QuestHint_GetNaviTextId(play);
+ 
+                 if (naviTextId != 0) {
+@@ -1400,7 +1654,10 @@ void func_80A053F0(Actor* thisx, PlayState* play) {
+     EnElf* this = (EnElf*)thisx;
+ 
+     if (player->naviTextId == 0) {
+-        if (player->focusActor == NULL) {
++        if ((player->focusActor == NULL) && (gCodexMailbox.magic == CODEX_MAILBOX_MAGIC) &&
++            (gCodexMailbox.version == CODEX_MAILBOX_VERSION) && !Play_InCsMode(play)) {
++            player->naviTextId = 0xE0;
++        } else if (player->focusActor == NULL) {
+ #if DEBUG_FEATURES
+             if (((gSaveContext.save.info.playerData.naviTimer >= 600) &&
+                  (gSaveContext.save.info.playerData.naviTimer <= 3000)) ||
+@@ -1426,6 +1683,21 @@ void func_80A053F0(Actor* thisx, PlayState* play) {
+         func_800F4524(&gSfxDefaultPos, NA_SE_VO_SK_LAUGH, 0x20);
+         thisx->focus.pos = thisx->world.pos;
+ 
++        if ((gCodexMailbox.magic == CODEX_MAILBOX_MAGIC) && (gCodexMailbox.version == CODEX_MAILBOX_VERSION)) {
++            this->fairyFlags |= 0x10;
++            this->fairyFlags |= 0x20;
++            thisx->update = func_80A052F4;
++            func_80A01C38(this, 3);
++            EnElf_StartCodexDialog(this, play);
++
++            if (this->elfMsg != NULL) {
++                this->elfMsg->actor.flags |= ACTOR_FLAG_TALK;
++            }
++
++            thisx->flags &= ~ACTOR_FLAG_TALK_OFFER_AUTO_ACCEPTED;
++            return;
++        }
++
+         if (thisx->textId == QuestHint_GetNaviTextId(play)) {
+             this->fairyFlags |= 0x80;
+             gSaveContext.save.info.playerData.naviTimer = 3001;
+@@ -1574,6 +1846,8 @@ void EnElf_Draw(Actor* thisx, PlayState* play) {
+             CLOSE_DISPS(play->state.gfxCtx, "../z_en_elf.c", 2793);
+         }
+     }
++
++    EnElf_DrawCodexComposer(play);
+ }
+ 
+ void EnElf_GetCuePos(Vec3f* dest, PlayState* play, s32 cueChannel) {
+diff --git a/src/overlays/actors/ovl_player_actor/z_player.c b/src/overlays/actors/ovl_player_actor/z_player.c
+index 84dd1e6f5..9c0a60a32 100644
+--- a/src/overlays/actors/ovl_player_actor/z_player.c
++++ b/src/overlays/actors/ovl_player_actor/z_player.c
+@@ -46,6 +46,7 @@
+ #include "debug.h"
+ #include "effect.h"
+ #include "lifemeter.h"
++#include "message.h"
+ #include "ocarina.h"
+ #include "play_state.h"
+ #include "save.h"
+@@ -6246,6 +6247,12 @@ s32 Player_ActionHandler_Talk(Player* this, PlayState* play) {
+                 return false;
+             }
+ 
++            if ((cUpTalkActor == this->naviActor) && !forceTalkToNavi && !canTalkToLockOnWithCUp &&
++                (gCodexMailbox.magic == CODEX_MAILBOX_MAGIC) && (gCodexMailbox.version == CODEX_MAILBOX_VERSION)) {
++                cUpTalkActor->flags |= ACTOR_FLAG_TALK;
++                return false;
++            }
++
+             talkOfferActor = cUpTalkActor;
+             this->talkActor = NULL;
+ 
+-- 
+2.50.1 (Apple Git-155)
+
